@@ -1,12 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom/client';
-import { fetchCurrentUser, getSettings, queryVaultRouter, saveSettings } from '../../lib/api';
+import {
+  DEFAULT_PERMISSIONS,
+  ExtensionPermissions,
+  fetchCurrentUser,
+  getSettings,
+  queryVaultRouter,
+  saveSettings
+} from '../../lib/api';
 
 function PopupApp() {
   const [backendUrl, setBackendUrl] = useState('https://applykit-nine.vercel.app');
   const [jwtToken, setJwtToken] = useState('');
   const [cvText, setCvText] = useState('');
   const [hideLowMatch, setHideLowMatch] = useState(false);
+  const [permissions, setPermissions] = useState<ExtensionPermissions>(DEFAULT_PERMISSIONS);
   const [isPro, setIsPro] = useState(false);
   const [userEmail, setUserEmail] = useState('');
   const [search, setSearch] = useState('');
@@ -20,6 +28,7 @@ function PopupApp() {
       setCvText(s.cvText);
       setHideLowMatch(s.hideLowMatch);
       setIsPro(s.isPro);
+      if (s.permissions) setPermissions(s.permissions);
     });
     fetchCurrentUser()
       .then((me) => {
@@ -32,9 +41,13 @@ function PopupApp() {
       .catch(() => {});
   }, []);
 
+  const togglePerm = (key: keyof ExtensionPermissions) => {
+    setPermissions((prev) => ({ ...prev, [key]: !prev[key] }));
+  };
+
   const handleSave = async () => {
-    await saveSettings({ backendUrl, jwtToken, cvText, hideLowMatch });
-    setSavedBanner('✓ Synced settings across browser!');
+    await saveSettings({ backendUrl, jwtToken, cvText, hideLowMatch, permissions });
+    setSavedBanner('✓ Permissions & settings synced across browser!');
     setTimeout(() => setSavedBanner(''), 2200);
   };
 
@@ -49,7 +62,7 @@ function PopupApp() {
   };
 
   return (
-    <div style={{ width: '350px', padding: '14px', fontFamily: 'system-ui, sans-serif', color: '#0f172a', background: '#f8fafc' }}>
+    <div style={{ width: '360px', padding: '14px', fontFamily: 'system-ui, sans-serif', color: '#0f172a', background: '#f8fafc' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
         <div style={{ fontWeight: 900, fontSize: '16px' }}>⚡ ApplyKit Hub</div>
         <span
@@ -88,30 +101,48 @@ function PopupApp() {
         </div>
       )}
 
-      {/* CV Profile Snippet for Instant Match Badges */}
-      <label style={{ display: 'block', fontSize: '11px', fontWeight: 700, marginBottom: '4px' }}>Your Core CV Text (powers live job card Match %)</label>
+      {/* Feature Permissions (Allow / Deny) */}
+      <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '10px', padding: '8px 10px', marginBottom: '8px', fontSize: '11px' }}>
+        <div style={{ fontWeight: 800, marginBottom: '6px', color: '#334155' }}>🛡️ Feature Permissions (Allow / Deny)</div>
+        {[
+          ['matchBadges', '🎯 Live ATS Match % & Green/Red Skills'],
+          ['scamDetector', '🛡️ Scam Risk & Client Hire-Rate Badges'],
+          ['proposalInsert', '✍️ 1-Click 150-Word Proposal Insert'],
+          ['autoSaveKanban', '📋 Auto-Save Jobs on Apply Click']
+        ].map(([k, label]) => {
+          const key = k as keyof ExtensionPermissions;
+          const allowed = permissions[key];
+          return (
+            <div key={k} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '3px 0' }}>
+              <span>{label}</span>
+              <button
+                type="button"
+                onClick={() => togglePerm(key)}
+                style={{
+                  border: 'none',
+                  borderRadius: '999px',
+                  padding: '2px 8px',
+                  fontSize: '10px',
+                  fontWeight: 800,
+                  cursor: 'pointer',
+                  background: allowed ? '#dcfce7' : '#ffe4e6',
+                  color: allowed ? '#065f46' : '#9f1239'
+                }}
+              >
+                {allowed ? 'Allowed' : 'Denied'}
+              </button>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* CV Profile Snippet */}
+      <label style={{ display: 'block', fontSize: '11px', fontWeight: 700, marginBottom: '4px' }}>Your Core CV Text (powers live Match %)</label>
       <textarea
-        rows={3}
+        rows={2}
         value={cvText}
         onChange={(e) => setCvText(e.target.value)}
         placeholder="Paste your CV skills & summary once..."
-        style={{ width: '100%', boxSizing: 'border-box', padding: '8px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '11px', marginBottom: '8px' }}
-      />
-
-      <label style={{ display: 'block', fontSize: '11px', fontWeight: 700, marginBottom: '4px' }}>Supabase / ApplyKit Bearer Token</label>
-      <input
-        type="password"
-        value={jwtToken}
-        onChange={(e) => setJwtToken(e.target.value)}
-        placeholder="Paste JWT from ApplyKit Web Dashboard"
-        style={{ width: '100%', boxSizing: 'border-box', padding: '7px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '11px', marginBottom: '8px' }}
-      />
-
-      <label style={{ display: 'block', fontSize: '11px', fontWeight: 700, marginBottom: '4px' }}>Backend API URL</label>
-      <input
-        type="url"
-        value={backendUrl}
-        onChange={(e) => setBackendUrl(e.target.value)}
         style={{ width: '100%', boxSizing: 'border-box', padding: '7px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '11px', marginBottom: '8px' }}
       />
 

@@ -2,17 +2,33 @@
 
 {% block content %}
 <div class="max-w-5xl mx-auto px-4 py-10">
-  <!-- Hero & Live Connection Status -->
+  <!-- Hero & Smart Auto-Detected Browser CTA -->
   <div class="text-center max-w-2xl mx-auto mb-8">
     <div id="extStatusBadge" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold mb-3">
-      <span>🧩 Manifest V3 · Chrome · Edge · Brave · Opera · Firefox</span>
+      <span id="detectedBrowserHeroLabel">🧩 Smart Browser Auto-Detection Ready</span>
     </div>
     <h1 class="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">
-      Install ApplyKit Browser Extension
+      1-Click ApplyKit Browser Setup
     </h1>
     <p class="text-sm sm:text-base text-slate-600 mt-3 leading-relaxed">
-      Get instant <strong>ATS Match Scores</strong>, green/red skill highlights, <strong>Scam Risk badges</strong>, Upwork client hire-rate warnings, 1-click <strong>150-word Proposal Insert</strong>, and automatic Kanban tracking while browsing Upwork &amp; LinkedIn.
+      ApplyKit detects your browser automatically and lets you <strong>Allow or Deny</strong> each feature before adding live <strong>ATS Match Scores</strong>, <strong>Scam Alerts</strong>, and <strong>1-Click Proposal Insert</strong>.
     </p>
+    <div class="mt-6 flex flex-wrap items-center justify-center gap-3">
+      <button
+        type="button"
+        onclick="window.ApplyKit.openExtensionConsentModal()"
+        class="px-6 py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-sm shadow-lg transition flex items-center gap-2"
+      >
+        <span>⚡ Auto-Detect &amp; Choose Permissions (Allow / Deny)</span>
+      </button>
+      <button
+        type="button"
+        onclick="window.ApplyKit.installDesktopWebApp()"
+        class="px-5 py-3.5 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm shadow-sm transition"
+      >
+        💻 Install 1-Click Desktop App
+      </button>
+    </div>
   </div>
 
   <!-- Live Extension Auto-Sync Banner (shown automatically if extension is already installed) -->

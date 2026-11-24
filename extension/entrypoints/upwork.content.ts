@@ -81,6 +81,9 @@ function quickKeywordScore(cvText: string, cardText: string): number {
 
 async function decorateUpworkJobCards() {
   const settings = await getSettings();
+  const perms = settings.permissions || { matchBadges: true, scamDetector: true, proposalInsert: true, autoSaveKanban: true };
+  if (!perms.matchBadges && !perms.scamDetector) return;
+
   const cards = document.querySelectorAll<HTMLElement>(
     'article[data-ev-label="search_results_impression"], section.air3-card-section'
   );
@@ -128,12 +131,8 @@ async function decorateUpworkJobCards() {
     const scamLabel = isHighScam ? '🚩 Scam Risk: High' : isMedScam ? '⚠️ Scam Risk: Medium' : '🛡️ Scam Risk: Low';
 
     badgeBar.innerHTML = `
-      <span style="background:${scoreColor};color:#fff;padding:2px 8px;border-radius:999px;font-weight:700;">
-        ⚡ Match ${score}%
-      </span>
-      <span style="background:${scamBg};color:${scamFg};padding:2px 8px;border-radius:999px;font-weight:600;">
-        ${scamLabel}
-      </span>
+      ${perms.matchBadges ? `<span style="background:${scoreColor};color:#fff;padding:2px 8px;border-radius:999px;font-weight:700;">⚡ Match ${score}%</span>` : ''}
+      ${perms.scamDetector ? `<span style="background:${scamBg};color:${scamFg};padding:2px 8px;border-radius:999px;font-weight:600;">${scamLabel}</span>` : ''}
     `;
     card.prepend(badgeBar);
   });
@@ -148,20 +147,23 @@ function attachApplyAutoSync() {
       if (!btn) return;
       const txt = (btn.innerText || '').trim();
       if (/^(apply now|submit a proposal|send for \d+ connects)$/i.test(txt)) {
-        const job = extractUpworkJob();
-        browser.runtime
-          .sendMessage({
-            type: 'APPLYKIT_SAVE_JOB',
-            payload: {
-              job_title: job.title,
-              company: job.company,
-              platform: 'Upwork',
-              job_url: job.url,
-              salary: job.salary,
-              status: 'Applied'
-            }
-          })
-          .catch(() => {});
+        getSettings().then((s) => {
+          if (s.permissions?.autoSaveKanban === false) return;
+          const job = extractUpworkJob();
+          browser.runtime
+            .sendMessage({
+              type: 'APPLYKIT_SAVE_JOB',
+              payload: {
+                job_title: job.title,
+                company: job.company,
+                platform: 'Upwork',
+                job_url: job.url,
+                salary: job.salary,
+                status: 'Applied'
+              }
+            })
+            .catch(() => {});
+        });
       }
     },
     true

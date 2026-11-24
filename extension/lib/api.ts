@@ -1,11 +1,19 @@
 import browser from 'webextension-polyfill';
 
+export interface ExtensionPermissions {
+  matchBadges: boolean;
+  scamDetector: boolean;
+  proposalInsert: boolean;
+  autoSaveKanban: boolean;
+}
+
 export interface ExtensionSettings {
   backendUrl: string;
   jwtToken: string;
   cvText: string;
   hideLowMatch: boolean;
   isPro: boolean;
+  permissions: ExtensionPermissions;
 }
 
 export interface ExtractedJob {
@@ -25,12 +33,20 @@ export interface ExtractedJob {
   };
 }
 
+export const DEFAULT_PERMISSIONS: ExtensionPermissions = {
+  matchBadges: true,
+  scamDetector: true,
+  proposalInsert: true,
+  autoSaveKanban: true
+};
+
 const DEFAULT_SETTINGS: ExtensionSettings = {
   backendUrl: 'https://applykit-nine.vercel.app',
   jwtToken: '',
   cvText: '',
   hideLowMatch: false,
-  isPro: false
+  isPro: false,
+  permissions: DEFAULT_PERMISSIONS
 };
 
 export async function getSettings(): Promise<ExtensionSettings> {

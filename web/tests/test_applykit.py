@@ -359,4 +359,15 @@ def test_extension_install_page_and_production_tailwind_csp():
     assert zip_dl.status_code == 200
     assert zip_dl.content[:2] == b"PK"
 
+    # Verify smart Allow/Deny consent modal & PWA Service Worker + Web Manifest
+    assert "extensionConsentModal" in ext_page.text
+    assert "smartBrowserInstallToast" in ext_page.text
+    sw = client.get("/sw.js")
+    assert sw.status_code == 200
+    assert "applykit-pwa-v1" in sw.text
+    manifest = client.get("/static/manifest.webmanifest")
+    assert manifest.status_code == 200
+    assert manifest.json()["short_name"] == "ApplyKit"
+
+
 

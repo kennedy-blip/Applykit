@@ -198,3 +198,169 @@
     </div>
   </div>
 </div>
+
+<!-- Smart Browser Detection Toast (Suggests Automatic Installation for Detected Browser) -->
+<div
+  id="smartBrowserInstallToast"
+  class="hidden fixed top-16 right-4 z-40 w-[340px] max-w-[calc(100vw-2rem)] bg-white rounded-2xl shadow-2xl border border-emerald-200 p-4 animate-fadeIn print:hidden"
+  role="region"
+  aria-label="Browser Extension Suggestion"
+>
+  <div class="flex items-start gap-3">
+    <div id="smartBrowserIcon" class="w-10 h-10 rounded-xl bg-emerald-600 text-white text-xl flex items-center justify-center shrink-0 shadow-sm">⚡</div>
+    <div class="flex-1 min-w-0">
+      <div class="flex items-center justify-between gap-2">
+        <span id="smartBrowserTitle" class="font-extrabold text-xs text-slate-900">ApplyKit for Chrome Detected</span>
+        <button type="button" onclick="window.ApplyKit.dismissSmartInstallToast()" class="text-slate-400 hover:text-slate-600 text-xs font-bold px-1" aria-label="Dismiss">✕</button>
+      </div>
+      <p class="text-[11px] text-slate-600 mt-0.5 leading-snug">
+        Add ApplyKit to your browser for live Upwork &amp; LinkedIn Match Scores, Scam Alerts &amp; 1-click Proposals.
+      </p>
+      <div class="flex items-center gap-2 mt-2.5">
+        <button
+          type="button"
+          onclick="window.ApplyKit.openExtensionConsentModal()"
+          class="flex-1 py-1.5 px-3 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-sm transition"
+        >
+          ⚡ Add to Browser
+        </button>
+        <button
+          type="button"
+          onclick="window.ApplyKit.dismissSmartInstallToast()"
+          class="py-1.5 px-2.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 font-semibold text-xs transition"
+        >
+          Later
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Native-Style Browser Extension Permissions Consent Modal (Allow / Deny Per Feature) -->
+<div
+  id="extensionConsentModal"
+  class="fixed inset-0 z-50 hidden bg-slate-900/65 backdrop-blur-sm flex items-center justify-center p-4 print:hidden"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="extConsentHeading"
+>
+  <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl border border-slate-200 overflow-hidden animate-fadeIn">
+    <!-- Top Header mimicking Chrome/Firefox Permission Prompt -->
+    <div class="px-5 py-4 bg-slate-50 border-b border-slate-200 flex items-center gap-3">
+      <div class="w-11 h-11 rounded-2xl bg-emerald-600 text-white text-xl font-black flex items-center justify-center shadow-sm shrink-0">
+        ⚡
+      </div>
+      <div class="flex-1">
+        <span id="extConsentBrowserTag" class="inline-block text-[10px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 mb-0.5">
+          Detected: Google Chrome
+        </span>
+        <h3 id="extConsentHeading" class="text-base font-extrabold text-slate-900">
+          Add “ApplyKit AI Assistant”?
+        </h3>
+      </div>
+      <button type="button" onclick="window.ApplyKit.closeModals()" class="text-slate-400 hover:text-slate-700 font-bold">✕</button>
+    </div>
+
+    <div class="p-5 space-y-4">
+      <p class="text-xs text-slate-600">
+        Choose which features you want to <strong>Allow</strong> or <strong>Deny</strong>. Your choices sync automatically with the extension and can be changed anytime:
+      </p>
+
+      <!-- Granular Allow / Deny Feature Toggles -->
+      <div class="space-y-2.5 text-xs">
+        <div class="flex items-center justify-between gap-3 p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+          <div>
+            <div class="font-bold text-slate-900">🎯 Live ATS Match Score &amp; Skill Highlights</div>
+            <div class="text-[11px] text-slate-500">Read job descriptions on Upwork &amp; LinkedIn to score CV fit.</div>
+          </div>
+          <button
+            type="button"
+            data-perm-key="matchBadges"
+            onclick="window.ApplyKit.toggleExtPermission('matchBadges')"
+            class="perm-pill shrink-0 px-3 py-1 rounded-full font-extrabold text-[11px] bg-emerald-100 text-emerald-800 border border-emerald-300 transition"
+          >
+            ✓ Allow
+          </button>
+        </div>
+
+        <div class="flex items-center justify-between gap-3 p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+          <div>
+            <div class="font-bold text-slate-900">🛡️ Scam Detector &amp; Client Hire-Rate Warnings</div>
+            <div class="text-[11px] text-slate-500">Flag Telegram traps, advance fees &amp; 0%-hire clients.</div>
+          </div>
+          <button
+            type="button"
+            data-perm-key="scamDetector"
+            onclick="window.ApplyKit.toggleExtPermission('scamDetector')"
+            class="perm-pill shrink-0 px-3 py-1 rounded-full font-extrabold text-[11px] bg-emerald-100 text-emerald-800 border border-emerald-300 transition"
+          >
+            ✓ Allow
+          </button>
+        </div>
+
+        <div class="flex items-center justify-between gap-3 p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+          <div>
+            <div class="font-bold text-slate-900">✍️ 1-Click 150-Word Proposal &amp; Cover Letter Insert</div>
+            <div class="text-[11px] text-slate-500">Insert tailored proposals straight into Upwork/LinkedIn boxes.</div>
+          </div>
+          <button
+            type="button"
+            data-perm-key="proposalInsert"
+            onclick="window.ApplyKit.toggleExtPermission('proposalInsert')"
+            class="perm-pill shrink-0 px-3 py-1 rounded-full font-extrabold text-[11px] bg-emerald-100 text-emerald-800 border border-emerald-300 transition"
+          >
+            ✓ Allow
+          </button>
+        </div>
+
+        <div class="flex items-center justify-between gap-3 p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+          <div>
+            <div class="font-bold text-slate-900">📋 Auto-Save Applied Jobs to Kanban Tracker</div>
+            <div class="text-[11px] text-slate-500">Sync job title, salary &amp; link when you click Apply.</div>
+          </div>
+          <button
+            type="button"
+            data-perm-key="autoSaveKanban"
+            onclick="window.ApplyKit.toggleExtPermission('autoSaveKanban')"
+            class="perm-pill shrink-0 px-3 py-1 rounded-full font-extrabold text-[11px] bg-emerald-100 text-emerald-800 border border-emerald-300 transition"
+          >
+            ✓ Allow
+          </button>
+        </div>
+      </div>
+
+      <!-- Primary Allow & Install vs Deny Buttons -->
+      <div class="space-y-2 pt-2">
+        <button
+          type="button"
+          id="extPrimaryInstallBtn"
+          onclick="window.ApplyKit.confirmAllowAndInstallExtension()"
+          class="w-full py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs sm:text-sm shadow-md transition flex items-center justify-center gap-2"
+        >
+          <span>⚡ Allow Selected &amp; Install Automatically</span>
+        </button>
+
+        <div class="grid grid-cols-2 gap-2">
+          <button
+            type="button"
+            id="pwaQuickInstallBtn"
+            onclick="window.ApplyKit.installDesktopWebApp()"
+            class="py-2 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs transition"
+          >
+            💻 1-Click Desktop App
+          </button>
+          <button
+            type="button"
+            onclick="window.ApplyKit.denyExtensionPrompt()"
+            class="py-2 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs transition"
+          >
+            Deny / Cancel
+          </button>
+        </div>
+      </div>
+
+      <!-- Post-Click Instant Guidance -->
+      <div id="extPostInstallHint" class="hidden rounded-xl bg-emerald-50 border border-emerald-200 p-3 text-xs text-emerald-950 space-y-1.5"></div>
+    </div>
+  </div>
+</div>

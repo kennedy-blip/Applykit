@@ -314,6 +314,17 @@ async def terms_page(
     return templates.TemplateResponse(request, "terms.html", ctx)
 
 
+@router.get("/sw.js")
+async def service_worker_js() -> Response:
+    sw_file = BASE_DIR / "static" / "sw.js"
+    content = sw_file.read_text(encoding="utf-8") if sw_file.exists() else ""
+    return Response(
+        content=content,
+        media_type="application/javascript",
+        headers={"Service-Worker-Allowed": "/"},
+    )
+
+
 @router.get("/ads.txt", response_class=PlainTextResponse)
 async def ads_txt() -> PlainTextResponse:
     ads_file = BASE_DIR / "ads.txt"

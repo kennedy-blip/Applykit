@@ -180,6 +180,7 @@
   function closeModals() {
     document.getElementById("loginWallModal")?.classList.add("hidden");
     document.getElementById("upgradeProModal")?.classList.add("hidden");
+    document.getElementById("extensionConsentModal")?.classList.add("hidden");
   }
 
   function openLoginModal(customMsg) {
@@ -1056,6 +1057,240 @@
   }
 
   // -------------------------------------------------------------------------
+  // Smart Browser Detection + Automatic Extension Suggestion + Allow/Deny Consent
+  // -------------------------------------------------------------------------
+  let deferredPwaPrompt = null;
+  let extPermissions = {
+    matchBadges: true,
+    scamDetector: true,
+    proposalInsert: true,
+    autoSaveKanban: true,
+  };
+
+  function loadExtPermissions() {
+    try {
+      const saved = JSON.parse(localStorage.getItem("applykit_ext_permissions") || "{}");
+      extPermissions = {
+        matchBadges: saved.matchBadges !== false,
+        scamDetector: saved.scamDetector !== false,
+        proposalInsert: saved.proposalInsert !== false,
+        autoSaveKanban: saved.autoSaveKanban !== false,
+      };
+    } catch (_e) {}
+    renderExtPermissionPills();
+  }
+
+  function renderExtPermissionPills() {
+    document.querySelectorAll(".perm-pill").forEach((btn) => {
+      const key = btn.getAttribute("data-perm-key");
+      const allowed = Boolean(extPermissions[key]);
+      if (allowed) {
+        btn.textContent = "✓ Allow";
+        btn.className =
+          "perm-pill shrink-0 px-3 py-1 rounded-full font-extrabold text-[11px] bg-emerald-100 text-emerald-800 border border-emerald-300 transition";
+      } else {
+        btn.textContent = "✕ Deny";
+        btn.className =
+          "perm-pill shrink-0 px-3 py-1 rounded-full font-extrabold text-[11px] bg-rose-100 text-rose-800 border border-rose-300 transition";
+      }
+    });
+  }
+
+  function toggleExtPermission(key) {
+    extPermissions[key] = !extPermissions[key];
+    localStorage.setItem("applykit_ext_permissions", JSON.stringify(extPermissions));
+    renderExtPermissionPills();
+    window.dispatchEvent(new CustomEvent("applykit:permissions-updated"));
+  }
+
+  async function detectUserBrowser() {
+    const ua = navigator.userAgent || "";
+    let isBrave = false;
+    try {
+      if (navigator.brave && typeof navigator.brave.isBrave === "function") {
+        isBrave = await navigator.brave.isBrave();
+      }
+    } catch (_e) {}
+
+    if (/Firefox\//i.test(ua)) {
+      return {
+        id: "firefox",
+        name: "Mozilla Firefox",
+        icon: "🦊",
+        downloadUrl: "/static/extensions/applykit-firefox.xpi",
+        zipUrl: "/static/extensions/applykit-firefox.zip",
+        extUrl: "about:debugging#/runtime/this-firefox",
+        isFirefox: true,
+      };
+    }
+    if (/Edg\//i.test(ua)) {
+      return {
+        id: "edge",
+        name: "Microsoft Edge",
+        icon: "🧭",
+        downloadUrl: "/static/extensions/applykit-edge.zip",
+        zipUrl: "/static/extensions/applykit-edge.zip",
+        extUrl: "edge://extensions",
+        isFirefox: false,
+      };
+    }
+    if (/OPR\/|Opera/i.test(ua)) {
+      return {
+        id: "opera",
+        name: "Opera Browser",
+        icon: "🔴",
+        downloadUrl: "/static/extensions/applykit-opera.zip",
+        zipUrl: "/static/extensions/applykit-opera.zip",
+        extUrl: "opera://extensions",
+        isFirefox: false,
+      };
+    }
+    if (isBrave) {
+      return {
+        id: "brave",
+        name: "Brave Browser",
+        icon: "🦁",
+        downloadUrl: "/static/extensions/applykit-chrome-brave.zip",
+        zipUrl: "/static/extensions/applykit-chrome-brave.zip",
+        extUrl: "brave://extensions",
+        isFirefox: false,
+      };
+    }
+    return {
+      id: "chrome",
+      name: "Google Chrome",
+      icon: "🌐",
+      downloadUrl: "/static/extensions/applykit-chrome-brave.zip",
+      zipUrl: "/static/extensions/applykit-chrome-brave.zip",
+      extUrl: "chrome://extensions",
+      isFirefox: false,
+    };
+  }
+
+  async function initSmartBrowserInstall() {
+    loadExtPermissions();
+
+    // Register Service Worker for 1-Click Native Browser App Install Prompt
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("/sw.js").catch(() => {});
+    }
+
+    window.addEventListener("beforeinstallprompt", (e) => {
+      e.preventDefault();
+      deferredPwaPrompt = e;
+    });
+
+    const browserInfo = await detectUserBrowser();
+    window.__APPLYKIT_BROWSER__ = browserInfo;
+
+    // Update /extension page dynamic detected card if present
+    const heroBrowserLabel = document.getElementById("detectedBrowserHeroLabel");
+    if (heroBrowserLabel) {
+      heroBrowserLabel.textContent = `${browserInfo.icon} Detected: ${browserInfo.name}`;
+    }
+
+    const iconEl = document.getElementById("smartBrowserIcon");
+    const titleEl = document.getElementById("smartBrowserTitle");
+    const tagEl = document.getElementById("extConsentBrowserTag");
+    const btnEl = document.getElementById("extPrimaryInstallBtn");
+
+    if (iconEl) iconEl.textContent = browserInfo.icon;
+    if (titleEl) titleEl.textContent = `ApplyKit for ${browserInfo.name}`;
+    if (tagEl) tagEl.textContent = `${browserInfo.icon} Detected: ${browserInfo.name}`;
+    if (btnEl) {
+      btnEl.innerHTML = `<span>⚡ Allow Selected &amp; Add to ${escapeHtml(browserInfo.name)}</span>`;
+    }
+
+    // Don't nag if extension is already installed, on mobile screen, or dismissed recently
+    const isInstalled = document.documentElement.getAttribute("data-applykit-extension-installed") === "true";
+    const isDismissed = sessionStorage.getItem("applykit_smart_ext_dismissed") === "1";
+    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent || "");
+
+    if (!isInstalled && !isDismissed && !isMobile) {
+      setTimeout(() => {
+        if (document.documentElement.getAttribute("data-applykit-extension-installed") !== "true") {
+          document.getElementById("smartBrowserInstallToast")?.classList.remove("hidden");
+        }
+      }, 1800);
+    }
+
+    window.addEventListener("applykit:extension-ready", () => {
+      document.getElementById("smartBrowserInstallToast")?.classList.add("hidden");
+    });
+  }
+
+  function dismissSmartInstallToast() {
+    sessionStorage.setItem("applykit_smart_ext_dismissed", "1");
+    document.getElementById("smartBrowserInstallToast")?.classList.add("hidden");
+  }
+
+  function openExtensionConsentModal() {
+    document.getElementById("smartBrowserInstallToast")?.classList.add("hidden");
+    loadExtPermissions();
+    document.getElementById("extPostInstallHint")?.classList.add("hidden");
+    document.getElementById("extensionConsentModal")?.classList.remove("hidden");
+  }
+
+  function denyExtensionPrompt() {
+    sessionStorage.setItem("applykit_smart_ext_dismissed", "1");
+    closeModals();
+    toast("Extension installation skipped. You can enable it anytime from the Extension menu.");
+  }
+
+  async function installDesktopWebApp() {
+    if (deferredPwaPrompt) {
+      deferredPwaPrompt.prompt();
+      const choice = await deferredPwaPrompt.userChoice.catch(() => null);
+      deferredPwaPrompt = null;
+      if (choice && choice.outcome === "accepted") {
+        toast("🎉 ApplyKit installed as a native Desktop/Mobile App!");
+        closeModals();
+      }
+      return;
+    }
+    toast("Tip: Click the Install App icon in your browser's address bar to pin ApplyKit to your desktop!");
+  }
+
+  async function confirmAllowAndInstallExtension() {
+    localStorage.setItem("applykit_ext_permissions", JSON.stringify(extPermissions));
+    window.dispatchEvent(new CustomEvent("applykit:permissions-updated"));
+
+    const info = window.__APPLYKIT_BROWSER__ || (await detectUserBrowser());
+    const hintEl = document.getElementById("extPostInstallHint");
+
+    // Trigger automatic package download / Firefox XPI prompt
+    const link = document.createElement("a");
+    link.href = info.downloadUrl;
+    if (!info.isFirefox) {
+      link.download = info.downloadUrl.split("/").pop();
+    }
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+
+    // Copy browser extension manager URL to clipboard so user can paste in 1 second
+    try {
+      await navigator.clipboard.writeText(info.extUrl);
+    } catch (_e) {}
+
+    if (hintEl) {
+      hintEl.classList.remove("hidden");
+      if (info.isFirefox) {
+        hintEl.innerHTML = `
+          <div class="font-extrabold text-emerald-900">🦊 Firefox Add-on Triggered!</div>
+          <p>If Firefox prompts you at the top-left, click <strong>Allow / Add</strong>. On Developer/Temporary mode, paste <code class="px-1.5 py-0.5 bg-white rounded font-mono">${escapeHtml(info.extUrl)}</code> (copied to clipboard!) and pick the downloaded file.</p>
+        `;
+      } else {
+        hintEl.innerHTML = `
+          <div class="font-extrabold text-emerald-900">✅ Permissions Saved &amp; ${escapeHtml(info.name)} Bundle Downloaded!</div>
+          <p>1. Unzip the downloaded file · 2. Open a new tab and paste <code class="px-1.5 py-0.5 bg-white rounded font-mono font-bold">${escapeHtml(info.extUrl)}</code> (already copied to your clipboard!) · 3. Drop the folder in to activate!</p>
+        `;
+      }
+    }
+    toast(`✓ Allowed features saved! Finishing setup for ${info.name}...`);
+  }
+
+  // -------------------------------------------------------------------------
   // Cookie Consent (GDPR & Kenya DPA) + Global Keyboard Shortcuts (Cmd/Ctrl+K)
   // -------------------------------------------------------------------------
   function acceptCookies(choice) {
@@ -1065,6 +1300,7 @@
 
   document.addEventListener("DOMContentLoaded", () => {
     initSupabaseAuth();
+    initSmartBrowserInstall();
 
     if (!localStorage.getItem("applykit_cookie_consent")) {
       document.getElementById("cookieConsentBanner")?.classList.remove("hidden");
@@ -1141,5 +1377,11 @@
     adminTogglePro,
     adminQuickApprove,
     acceptCookies,
+    openExtensionConsentModal,
+    dismissSmartInstallToast,
+    toggleExtPermission,
+    confirmAllowAndInstallExtension,
+    denyExtensionPrompt,
+    installDesktopWebApp,
   };
 })();

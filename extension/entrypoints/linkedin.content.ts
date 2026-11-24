@@ -41,6 +41,7 @@ function extractLinkedInJob(): ExtractedJob {
 
 async function decorateLinkedInJobCards() {
   const settings = await getSettings();
+  if (settings.permissions?.matchBadges === false) return;
   const cvLower = settings.cvText.toLowerCase();
   const cards = document.querySelectorAll<HTMLElement>(
     '.job-card-container, .jobs-search-results__list-item'
@@ -107,20 +108,23 @@ function attachEasyApplySync() {
       if (!btn) return;
       const txt = (btn.innerText || '').trim();
       if (/^(easy apply|submit application|apply)$/i.test(txt)) {
-        const job = extractLinkedInJob();
-        browser.runtime
-          .sendMessage({
-            type: 'APPLYKIT_SAVE_JOB',
-            payload: {
-              job_title: job.title,
-              company: job.company,
-              platform: 'LinkedIn',
-              job_url: job.url,
-              salary: job.salary,
-              status: 'Applied'
-            }
-          })
-          .catch(() => {});
+        getSettings().then((s) => {
+          if (s.permissions?.autoSaveKanban === false) return;
+          const job = extractLinkedInJob();
+          browser.runtime
+            .sendMessage({
+              type: 'APPLYKIT_SAVE_JOB',
+              payload: {
+                job_title: job.title,
+                company: job.company,
+                platform: 'LinkedIn',
+                job_url: job.url,
+                salary: job.salary,
+                status: 'Applied'
+              }
+            })
+            .catch(() => {});
+        });
       }
     },
     true

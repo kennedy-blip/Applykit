@@ -15,6 +15,9 @@
   <meta property="og:url" content="{{ request.url }}" />
 
   <!-- Production Compiled TailwindCSS + Custom Lightweight CSS (Zero CDN warning) -->
+  <link rel="manifest" href="/static/manifest.webmanifest" />
+  <link rel="icon" type="image/svg+xml" href="/static/icon.svg" />
+  <meta name="theme-color" content="#059669" />
   <link rel="stylesheet" href="/static/tailwind.css" />
   <link rel="stylesheet" href="/static/style.css" />
 
@@ -85,7 +88,7 @@
 
       <!-- Navigation & Auth -->
       <nav class="flex items-center gap-2 sm:gap-3 text-xs sm:text-sm font-semibold shrink-0">
-        <a href="/extension" class="hidden md:inline-flex items-center gap-1 text-slate-600 hover:text-slate-900 px-2 py-1 rounded-lg hover:bg-slate-100">🧩 Extension</a>
+        <button type="button" onclick="window.ApplyKit.openExtensionConsentModal()" class="hidden md:inline-flex items-center gap-1 text-emerald-700 hover:text-emerald-800 px-2.5 py-1 rounded-lg bg-emerald-50 hover:bg-emerald-100 font-bold">⚡ Add to Browser</button>
         <a href="/dashboard" class="text-slate-600 hover:text-slate-900 px-2 py-1 rounded-lg hover:bg-slate-100">Tracker</a>
         <a href="/pricing" class="hidden sm:inline-block text-emerald-700 hover:text-emerald-800 px-2 py-1 rounded-lg hover:bg-emerald-50">
           {% if user.is_pro %}Pro Active{% else %}Go Pro{% endif %}
