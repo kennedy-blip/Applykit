@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="max-w-6xl mx-auto px-4 py-12">
+  <div class="text-center max-w-2xl mx-auto mb-10">
+    <span class="text-xs font-bold uppercase tracking-wider text-emerald-700">Local African + Global Pricing</span>
+    <h1 class="text-3xl sm:text-4xl font-black text-slate-900 mt-1">Invest 1 Freelance Hour. Win Jobs All Month.</h1>
+    <p class="text-sm text-slate-600 mt-2">
+      Pay seamlessly via <strong>Safaricom M-Pesa STK Push ({{ MPESA_MONTHLY_KES }} KES/mo)</strong>, Paystack/Flutterwave (Nigeria &amp; Ghana), or Global Card via Lemon Squeezy ($6/mo or $29 Lifetime).
+    </p>
+  </div>
+
+  <!-- 3 Pricing Tiers -->
+  <div class="grid lg:grid-cols-3 gap-6 items-stretch">
+    <!-- FREE -->
+    <div class="bg-white rounded-3xl border border-slate-200 p-6 flex flex-col justify-between">
+      <div>
+        <div class="text-sm font-bold text-slate-500">Free Forever</div>
+        <div class="text-3xl font-black text-slate-900 mt-2">$0 <span class="text-xs font-normal text-slate-400">/ 0 KES</span></div>
+        <p class="text-xs text-slate-500 mt-1">Ad-supported starter kit</p>
+        <ul class="mt-6 space-y-2.5 text-xs sm:text-sm text-slate-700">
+          <li>✓ Unlimited Vault discovery search</li>
+          <li>✓ Unlimited PAYE, Rate &amp; Invoice JS tools</li>
+          <li>✓ 5 AI generations / month (Llama-3.1-8B)</li>
+          <li>✓ Track up to 20 Kanban applications</li>
+          <li>✓ Extension basic job save &amp; score preview</li>
+          <li>✓ +5 bonus runs per friend invited</li>
+        </ul>
+      </div>
+      <a href="/" class="mt-8 block text-center py-3 rounded-xl border border-slate-300 font-bold text-xs sm:text-sm text-slate-700 hover:bg-slate-50">
+        Current Starter Plan
+      </a>
+    </div>
+
+    <!-- PRO MONTHLY (KENYA M-PESA + GLOBAL $6) -->
+    <div class="bg-slate-900 text-white rounded-3xl border-2 border-emerald-500 p-6 shadow-xl flex flex-col justify-between relative">
+      <span class="absolute -top-3 right-6 px-3 py-0.5 rounded-full bg-emerald-400 text-slate-950 text-[11px] font-black uppercase">Most Popular</span>
+      <div>
+        <div class="text-sm font-bold text-emerald-400">ApplyKit Pro Monthly</div>
+        <div class="mt-2 flex items-baseline gap-2">
+          <span class="text-3xl sm:text-4xl font-black">{{ MPESA_MONTHLY_KES }} KES</span>
+          <span class="text-xs text-slate-400">/ mo · or $6 USD</span>
+        </div>
+        <p class="text-xs text-slate-400 mt-1">Instant activation on Web + Chrome/Edge/Firefox Extension</p>
+        <ul class="mt-6 space-y-2.5 text-xs sm:text-sm text-slate-200">
+          <li>⚡ <strong>Unlimited AI runs</strong> across all 7 + 60+ Vault tools</li>
+          <li>🧠 Upgraded <strong>Llama-3.3-70B Flagship AI</strong></li>
+          <li>🚫 <strong>100% Zero Ads</strong> everywhere</li>
+          <li>🧩 Full Extension: 1-click Upwork Proposal Insert, Client Reputation Deep-Dive &amp; Hide &lt;50% Matches</li>
+          <li>📊 Unlimited Kanban + CSV Export + WhatsApp Interview Reminders</li>
+          <li>📄 Unlimited PDF CV &amp; Contract downloads</li>
+        </ul>
+
+        <!-- Direct Safaricom Daraja STK Push Box -->
+        <form onsubmit="window.ApplyKit.startPricingMpesa(event, 'monthly')" class="mt-6 pt-5 border-t border-slate-800 space-y-2.5">
+          <label class="block text-xs font-bold text-emerald-300">🇰🇪 Instant M-Pesa Express (STK Push)</label>
+          <input
+            id="pricingMpesaPhone"
+            type="tel"
+            required
+            placeholder="254712345678 or 0712345678"
+            class="w-full rounded-xl bg-slate-800 border border-slate-700 px-3.5 py-2.5 text-sm text-white placeholder-slate-500"
+          />
+          <button type="submit" id="pricingStkBtn" class="w-full py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-sm transition">
+            Pay {{ MPESA_MONTHLY_KES }} KES via M-Pesa PIN
+          </button>
+        </form>
+        <div id="pricingMpesaPollBox" class="hidden mt-3 p-3 rounded-xl bg-slate-800 border border-emerald-500/40 text-xs text-emerald-200"></div>
+      </div>
+
+      <div class="mt-4 pt-3 border-t border-slate-800 flex flex-col gap-2 text-center text-xs">
+        <a href="{{ LEMONSQUEEZY_MONTHLY_URL }}" target="_blank" rel="noopener" class="py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold">
+          🌍 Pay $6/mo via Card / Apple Pay (Lemon Squeezy)
+        </a>
+        <div class="flex justify-center gap-3 text-[11px] text-slate-400">
+          <a href="{{ PAYSTACK_PAYMENT_URL }}" target="_blank" rel="noopener" class="underline hover:text-emerald-300">🇳🇬🇬🇭 Paystack</a>
+          <span>·</span>
+          <a href="{{ FLUTTERWAVE_PAYMENT_URL }}" target="_blank" rel="noopener" class="underline hover:text-emerald-300">Flutterwave Mobile Money</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- LIFETIME ($29 ONCE / 3,750 KES) -->
+    <div class="bg-white rounded-3xl border border-slate-200 p-6 flex flex-col justify-between">
+      <div>
+        <div class="text-sm font-bold text-amber-700">Pro Lifetime Believer</div>
+        <div class="text-3xl font-black text-slate-900 mt-2">$29 <span class="text-xs font-normal text-slate-500">once · or {{ MPESA_LIFETIME_KES }} KES</span></div>
+        <p class="text-xs text-slate-500 mt-1">Pay once, own Pro forever — zero monthly bills</p>
+        <ul class="mt-6 space-y-2.5 text-xs sm:text-sm text-slate-700">
+          <li>✓ Everything in Pro Monthly forever</li>
+          <li>✓ All future Vault AI tools included</li>
+          <li>✓ Priority career support</li>
+          <li>✓ Multi-browser sync across unlimited devices</li>
+        </ul>
+      </div>
+      <div class="mt-8 space-y-2">
+        <a href="{{ LEMONSQUEEZY_LIFETIME_URL }}" target="_blank" rel="noopener" class="block text-center py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-sm">
+          Get $29 Lifetime Deal →
+        </a>
+        <button type="button" onclick="window.ApplyKit.startLifetimeMpesa()" class="w-full py-2.5 rounded-xl border border-emerald-600 text-emerald-700 hover:bg-emerald-50 font-bold text-xs">
+          🇰🇪 Or Pay {{ MPESA_LIFETIME_KES }} KES Once via M-Pesa
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fallback Manual M-Pesa Buy Goods Till Verification -->
+  <div class="mt-12 bg-white rounded-2xl border border-slate-200 p-6 max-w-3xl mx-auto">
+    <h2 class="text-base font-extrabold text-slate-900">📲 Didn't receive the STK prompt? Pay via Manual M-Pesa Buy Goods Till</h2>
+    <p class="text-xs sm:text-sm text-slate-600 mt-1">
+      1. Open M-Pesa → <strong>Lipa na M-Pesa</strong> → <strong>Buy Goods and Services</strong> → Enter Till Number <strong class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-900 font-mono">{{ MPESA_MANUAL_TILL }}</strong> → Send <strong>{{ MPESA_MONTHLY_KES }} KES</strong>.<br />
+      2. Paste your M-Pesa confirmation code (e.g. <code>SJK82LMN4P</code>) and account email below:
+    </p>
+    <form onsubmit="window.ApplyKit.submitManualTillForm(event)" class="mt-4 grid sm:grid-cols-4 gap-2.5">
+      <input id="tillCode" required minlength="8" maxlength="16" placeholder="M-Pesa Code (SJK82...)" class="rounded-xl border border-slate-300 px-3 py-2.5 text-xs sm:text-sm uppercase font-mono" />
+      <input id="tillPhone" required placeholder="Phone (0712...)" class="rounded-xl border border-slate-300 px-3 py-2.5 text-xs sm:text-sm" />
+      <input id="tillEmail" type="email" required value="{{ user.email if user.authenticated else '' }}" placeholder="Account Email" class="rounded-xl border border-slate-300 px-3 py-2.5 text-xs sm:text-sm" />
+      <button type="submit" class="rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs sm:text-sm py-2.5 px-4">Submit Code</button>
+    </form>
+    <div id="tillSubmitMsg" class="hidden mt-3 text-xs font-semibold text-emerald-700 bg-emerald-50 p-2.5 rounded-lg"></div>
+  </div>
+</section>
+{% endblock %}

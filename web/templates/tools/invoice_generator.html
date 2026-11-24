@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+
+{% block content %}
+<article class="max-w-5xl mx-auto px-4 py-8 sm:py-10">
+  <header class="mb-6 print:hidden">
+    <div class="text-xs font-bold uppercase tracking-wider text-emerald-700 mb-1">🧾 Showcase Tool #6 · 100% Free Printable PDF Invoice (Pure JS)</div>
+    <h1 class="text-2xl sm:text-4xl font-black text-slate-900">{{ h1_title }}</h1>
+    <p class="text-sm text-slate-600 mt-2">
+      Fill in your freelancer details, client name, line items, and M-Pesa / Bank / Wise payment instructions, then export a clean PDF via 1-click Print.
+    </p>
+  </header>
+
+  <div class="grid lg:grid-cols-2 gap-6">
+    <!-- Editor Form (Hidden when printing PDF) -->
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 sm:p-6 space-y-4 print:hidden">
+      <div class="grid sm:grid-cols-2 gap-3">
+        <div>
+          <label class="block text-xs font-bold text-slate-800 mb-1">Invoice #</label>
+          <input id="invNumber" type="text" value="INV-2026-001" oninput="window.ApplyKit.renderInvoice()" class="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs sm:text-sm" />
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-800 mb-1">Currency</label>
+          <select id="invCurrency" onchange="window.ApplyKit.renderInvoice()" class="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs sm:text-sm bg-white">
+            <option value="KES">KES (Kenyan Shilling)</option>
+            <option value="USD">USD ($ US Dollar)</option>
+            <option value="NGN">NGN (₦ Nigerian Naira)</option>
+            <option value="GHS">GHS (₵ Ghanaian Cedi)</option>
+            <option value="EUR">EUR (€ Euro)</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-800 mb-1">Your Name / Studio</label>
+          <input id="invFrom" type="text" value="Amina Odhiambo · Digital Studio" oninput="window.ApplyKit.renderInvoice()" class="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs sm:text-sm" />
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-800 mb-1">Bill To (Client Name &amp; Company)</label>
+          <input id="invTo" type="text" value="Savanna Fintech Ltd, Nairobi" oninput="window.ApplyKit.renderInvoice()" class="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs sm:text-sm" />
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-xs font-bold text-slate-800 mb-1">Service / Milestone Description</label>
+        <input id="invDesc" type="text" value="Full-Stack Web Application Development — Milestone 1" oninput="window.ApplyKit.renderInvoice()" class="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs sm:text-sm" />
+      </div>
+
+      <div class="grid grid-cols-3 gap-3">
+        <div>
+          <label class="block text-xs font-bold text-slate-800 mb-1">Quantity / Hrs</label>
+          <input id="invQty" type="number" value="1" min="1" oninput="window.ApplyKit.renderInvoice()" class="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs sm:text-sm" />
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-800 mb-1">Unit Rate</label>
+          <input id="invRate" type="number" value="65000" min="0" oninput="window.ApplyKit.renderInvoice()" class="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs sm:text-sm" />
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-800 mb-1">Tax / VAT %</label>
+          <input id="invTax" type="number" value="0" min="0" max="30" oninput="window.ApplyKit.renderInvoice()" class="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs sm:text-sm" />
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-xs font-bold text-slate-800 mb-1">M-Pesa Paybill / Till / Bank / Wise Details</label>
+        <textarea id="invPaymentDetails" rows="3" oninput="window.ApplyKit.renderInvoice()" class="w-full rounded-xl border border-slate-300 p-3 text-xs sm:text-sm">M-Pesa Buy Goods Till: 4182930 (Name: Amina Studio)
+Phone: +254 712 345 678 | Wise / USD Wire available on request.</textarea>
+      </div>
+
+      <button type="button" onclick="window.print()" class="w-full py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-sm shadow-md">
+        🖨️ Print / Save Clean A4 PDF Invoice
+      </button>
+    </div>
+
+    <!-- Printable A4 Invoice Preview -->
+    <div id="invoicePreviewSheet" class="bg-white rounded-2xl border border-slate-200 shadow-sm p-7 sm:p-8 flex flex-col justify-between print:border-0 print:shadow-none print:p-0">
+      <div>
+        <div class="flex items-start justify-between border-b border-slate-200 pb-5">
+          <div>
+            <div class="text-xs font-bold uppercase tracking-widest text-emerald-700">INVOICE</div>
+            <div id="prevInvNumber" class="text-xl font-black text-slate-900 mt-0.5">INV-2026-001</div>
+          </div>
+          <div class="text-right text-xs text-slate-500">
+            <div>Date: <strong id="prevInvDate" class="text-slate-800"></strong></div>
+            <div>Terms: Due on Receipt</div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4 py-5 text-xs">
+          <div>
+            <div class="uppercase text-[10px] font-bold text-slate-400">From</div>
+            <div id="prevInvFrom" class="font-bold text-slate-900 mt-1 text-sm"></div>
+          </div>
+          <div>
+            <div class="uppercase text-[10px] font-bold text-slate-400">Bill To</div>
+            <div id="prevInvTo" class="font-bold text-slate-900 mt-1 text-sm"></div>
+          </div>
+        </div>
+
+        <table class="w-full text-left border-t border-b border-slate-200 my-3 text-xs">
+          <thead>
+            <tr class="text-slate-500 border-b border-slate-100">
+              <th class="py-2.5 font-bold">Description</th>
+              <th class="py-2.5 font-bold text-right">Qty</th>
+              <th class="py-2.5 font-bold text-right">Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td id="prevInvDesc" class="py-4 font-medium text-slate-900"></td>
+              <td id="prevInvQty" class="py-4 text-right text-slate-700">1</td>
+              <td id="prevInvSubtotal" class="py-4 text-right font-semibold text-slate-900"></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="flex justify-end mt-4">
+          <div class="w-56 space-y-1.5 text-xs">
+            <div class="flex justify-between text-slate-500"><span>Tax:</span><span id="prevInvTaxAmt">0</span></div>
+            <div class="flex justify-between text-base font-black text-slate-900 border-t border-slate-200 pt-2">
+              <span>Total Due:</span>
+              <span id="prevInvTotal" class="text-emerald-700"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-8 pt-4 border-t border-slate-200">
+        <div class="text-[11px] font-bold uppercase text-slate-500 mb-1">Payment Instructions (M-Pesa / Bank)</div>
+        <pre id="prevInvPayment" class="whitespace-pre-wrap font-sans text-xs text-slate-700 bg-slate-50 p-3 rounded-xl border border-slate-100"></pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="print:hidden">
+    {% with slot_position="in-feed-invoice" %}{% include "components/adslot.html" %}{% endwith %}
+
+    <section class="mt-12 bg-white rounded-2xl border border-slate-200 p-6 space-y-4">
+      <h2 class="text-lg font-extrabold text-slate-900">FAQ — Freelance Invoicing with M-Pesa &amp; International Clients</h2>
+      {% for faq in faqs %}
+      <div class="border-t border-slate-100 pt-3">
+        <h3 class="font-bold text-sm text-slate-900">{{ faq.q }}</h3>
+        <p class="text-xs sm:text-sm text-slate-600 mt-1">{{ faq.a }}</p>
+      </div>
+      {% endfor %}
+    </section>
+  </div>
+</article>
+{% endblock %}
+
+{% block scripts %}
+<script>document.addEventListener('DOMContentLoaded', () => window.ApplyKit.renderInvoice());</script>
+{% endblock %}

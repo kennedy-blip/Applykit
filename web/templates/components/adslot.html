@@ -1,0 +1,18 @@
+{# Google AdSense Responsive Unit — NEVER rendered for Pro users (`not user.is_pro`), spaced >=160px from primary CTAs, max 3/page #}
+{% if not user.is_pro %}
+<div class="adslot-safe-wrapper my-10 select-none print:hidden" data-adslot-position="{{ slot_position | default('banner') }}" style="margin-top: 2.5rem; margin-bottom: 2.5rem;">
+  <div class="text-[10px] uppercase tracking-widest text-slate-400 text-center mb-1">Sponsored · <a href="/pricing" class="underline hover:text-emerald-600">Remove Ads with Pro</a></div>
+  <div class="relative min-h-[92px] rounded-xl border border-dashed border-slate-200 bg-slate-50/80 flex items-center justify-center overflow-hidden px-4 py-3">
+    <ins class="adsbygoogle w-full block"
+         style="display:block"
+         data-ad-client="{{ ADSENSE_ID }}"
+         data-ad-slot="{{ slot_id | default('AUTO') }}"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <div class="adblock-fallback-notice text-xs text-slate-500 text-center pointer-events-auto">
+      <span>⚡ ApplyKit is free thanks to ethical ads. </span>
+      <a href="/pricing" class="font-semibold text-emerald-700 hover:underline">Go Pro (750 KES / $6) for Unlimited AI + Zero Ads →</a>
+    </div>
+  </div>
+</div>
+{% endif %}

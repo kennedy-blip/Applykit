@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ page_title | default('ApplyKit — AI Job Toolkit Hub for Africa & Global Freelancers') }}</title>
+  <meta name="description" content="{{ meta_description | default('AI Job Toolkit Hub: ATS CV Checker, 150-Word Cover Letter Generator, Kenya PAYE 2026 & Freelance Rate Calculators + 60+ Vault Career Tools.') }}" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="{{ request.url }}" />
+
+  <!-- Open Graph / WhatsApp Preview -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="{{ page_title | default('ApplyKit Hub') }}" />
+  <meta property="og:description" content="{{ meta_description | default('AI Job Toolkit Hub for Africa & Global Freelancers.') }}" />
+  <meta property="og:url" content="{{ request.url }}" />
+
+  <!-- Production Compiled TailwindCSS + Custom Lightweight CSS (Zero CDN warning) -->
+  <link rel="manifest" href="/static/manifest.webmanifest" />
+  <link rel="icon" type="image/svg+xml" href="/static/icon.svg" />
+  <meta name="theme-color" content="#059669" />
+  <link rel="stylesheet" href="/static/tailwind.css" />
+  <link rel="stylesheet" href="/static/style.css" />
+
+  {% if not user.is_pro and ADSENSE_ID and 'XXXX' not in ADSENSE_ID %}
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ ADSENSE_ID }}" crossorigin="anonymous"></script>
+  {% endif %}
+
+  {% if SUPABASE_PUBLIC.configured == 'true' %}
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  {% endif %}
+
+  {% if faqs %}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {% for faq in faqs %}
+      {
+        "@type": "Question",
+        "name": {{ faq.q | tojson }},
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": {{ faq.a | tojson }}
+        }
+      }{% if not loop.last %},{% endif %}
+      {% endfor %}
+    ]
+  }
+  </script>
+  {% endif %}
+</head>
+<body
+  class="min-h-screen flex flex-col bg-slate-50 text-slate-900 antialiased selection:bg-emerald-200 selection:text-emerald-950"
+  data-supabase-url="{{ SUPABASE_PUBLIC.url }}"
+  data-supabase-anon="{{ SUPABASE_PUBLIC.anon_key }}"
+  data-is-pro="{{ 'true' if user.is_pro else 'false' }}"
+>
+  <!-- Sticky Mobile-First Header with Universal "⚡ Ask ApplyKit..." Discovery Bar -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-slate-200 print:hidden">
+    <div class="max-w-6xl mx-auto px-4 py-2.5 flex items-center justify-between gap-3">
+      <!-- Brand -->
+      <a href="/" class="flex items-center gap-2 shrink-0 group">
+        <span class="w-8 h-8 rounded-xl bg-emerald-600 text-white font-black flex items-center justify-center shadow-sm group-hover:bg-emerald-700 transition">⚡</span>
+        <div class="leading-tight">
+          <span class="font-extrabold text-base tracking-tight text-slate-900">ApplyKit</span>
+          {% if user.is_pro %}
+          <span class="ml-1 text-[10px] font-bold uppercase px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800">PRO</span>
+          {% else %}
+          <span class="hidden sm:inline-block ml-1 text-[10px] font-semibold px-1.5 py-0.5 rounded bg-slate-100 text-slate-600">Africa + Global</span>
+          {% endif %}
+        </div>
+      </a>
+
+      <!-- Universal Search Trigger ("⚡ Ask ApplyKit...") -->
+      <button
+        type="button"
+        onclick="window.ApplyKit.openPalette()"
+        class="flex-1 max-w-md flex items-center justify-between gap-2 px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200/80 border border-slate-200 text-left text-xs sm:text-sm text-slate-500 transition"
+        aria-label="Open Universal ApplyKit Vault Search"
+      >
+        <span class="truncate flex items-center gap-1.5">
+          <span class="text-emerald-600 font-bold">⚡ Ask ApplyKit...</span>
+          <span class="hidden md:inline text-slate-400">("resign", "NDA", "negotiate")</span>
+        </span>
+        <kbd class="hidden sm:inline-block px-1.5 py-0.5 text-[10px] font-mono bg-white border border-slate-200 rounded text-slate-500">⌘K</kbd>
+      </button>
+
+      <!-- Navigation & Auth -->
+      <nav class="flex items-center gap-2 sm:gap-3 text-xs sm:text-sm font-semibold shrink-0">
+        <button type="button" onclick="window.ApplyKit.openExtensionConsentModal()" class="hidden md:inline-flex items-center gap-1 text-emerald-700 hover:text-emerald-800 px-2.5 py-1 rounded-lg bg-emerald-50 hover:bg-emerald-100 font-bold">⚡ Add to Browser</button>
+        <a href="/dashboard" class="text-slate-600 hover:text-slate-900 px-2 py-1 rounded-lg hover:bg-slate-100">Tracker</a>
+        <a href="/pricing" class="hidden sm:inline-block text-emerald-700 hover:text-emerald-800 px-2 py-1 rounded-lg hover:bg-emerald-50">
+          {% if user.is_pro %}Pro Active{% else %}Go Pro{% endif %}
+        </a>
+
+        {% if user.authenticated %}
+        <div class="flex items-center gap-1.5">
+          <span class="hidden lg:inline text-xs text-slate-500 max-w-[130px] truncate">{{ user.email }}</span>
+          <button type="button" onclick="window.ApplyKit.logout()" class="px-2.5 py-1.5 rounded-lg border border-slate-200 text-xs text-slate-600 hover:bg-slate-100">Sign Out</button>
+        </div>
+        {% else %}
+        <button
+          type="button"
+          onclick="window.ApplyKit.openLoginModal()"
+          class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold shadow-sm transition"
+        >
+          Sign In
+        </button>
+        {% endif %}
+      </nav>
+    </div>
+  </header>
+
+  {% if is_tool_page and not user.is_pro %}
+  <div class="max-w-5xl mx-auto w-full px-4">
+    {% with slot_position="top-tool-banner" %}{% include "components/adslot.html" %}{% endwith %}
+  </div>
+  {% endif %}
+
+  <!-- Main Content -->
+  <main class="flex-1 w-full">
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- Privacy Notice & Footer -->
+  <footer class="bg-white border-t border-slate-200 mt-20 pb-20 sm:pb-10 print:hidden">
+    <div class="max-w-6xl mx-auto px-4 py-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-8 text-xs text-slate-600">
+      <div>
+        <div class="font-extrabold text-slate-900 text-sm flex items-center gap-1.5 mb-2">
+          <span class="text-emerald-600">⚡</span> ApplyKit Hub
+        </div>
+        <p class="leading-relaxed">
+          Fast, privacy-first AI career &amp; freelance hub for Kenya, Nigeria, Ghana &amp; global remote talent.
+          <strong>We never train AI on your CV.</strong>
+        </p>
+      </div>
+      <div>
+        <div class="font-bold text-slate-900 mb-2">7 Showcase Tools</div>
+        <ul class="space-y-1.5">
+          <li><a href="/tools/ats-checker" class="hover:text-emerald-700">ATS CV Match Checker</a></li>
+          <li><a href="/tools/cover-letter-generator" class="hover:text-emerald-700">150-Word Cover Letter</a></li>
+          <li><a href="/tools/freelance-rate-calculator" class="hover:text-emerald-700">Freelance Rate Calculator</a></li>
+          <li><a href="/tools/paye-calculator-kenya-2026" class="hover:text-emerald-700">PAYE Calculator 2026 (KE/NG/GH)</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="font-bold text-slate-900 mb-2">More Tools &amp; Extension</div>
+        <ul class="space-y-1.5">
+          <li><a href="/tools/scam-detector" class="hover:text-emerald-700">Job Scam Detector</a></li>
+          <li><a href="/tools/invoice-generator" class="hover:text-emerald-700">M-Pesa &amp; PDF Invoice Generator</a></li>
+          <li><a href="/tools/interview-questions-generator" class="hover:text-emerald-700">Interview Q&amp;A Generator</a></li>
+          <li><a href="/extension" class="text-emerald-700 font-semibold hover:underline">🧩 Install Browser Extension</a></li>
+          <li><button type="button" onclick="window.ApplyKit.openPalette()" class="text-emerald-700 font-semibold hover:underline">⚡ Search 60+ Hidden Vault Tools</button></li>
+        </ul>
+      </div>
+      <div>
+        <div class="font-bold text-slate-900 mb-2">Legal, DPA &amp; Account</div>
+        <ul class="space-y-1.5">
+          <li><a href="/pricing" class="hover:text-emerald-700">Pricing (750 KES M-Pesa / $6 Global)</a></li>
+          <li><a href="/privacy" class="hover:text-emerald-700">Privacy Policy &amp; Kenya DPA</a></li>
+          <li><a href="/terms" class="hover:text-emerald-700">Terms of Service</a></li>
+          <li><a href="/sitemap.xml" class="hover:text-emerald-700">Sitemap</a> · <a href="/ads.txt" class="hover:text-emerald-700">ads.txt</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Mobile Sticky AdSense Bar (Free users only, well away from primary CTA) -->
+  {% if is_tool_page and not user.is_pro %}
+  <div id="mobileStickyAd" class="sm:hidden fixed bottom-0 inset-x-0 z-30 bg-white/95 border-t border-slate-200 px-3 py-1.5 flex items-center justify-between text-[11px] text-slate-600 print:hidden">
+    <span>⚡ Ad-supported Free Tier · <a href="/pricing" class="text-emerald-700 font-bold underline">Go Pro (No Ads)</a></span>
+    <button type="button" onclick="document.getElementById('mobileStickyAd').remove()" class="text-slate-400 px-1.5 font-bold" aria-label="Dismiss banner">✕</button>
+  </div>
+  {% endif %}
+
+  <!-- GDPR & Kenya Data Protection Act (DPA) Cookie & AdSense Consent Banner -->
+  <div id="cookieConsentBanner" class="hidden fixed bottom-4 right-4 left-4 sm:left-auto sm:max-w-md z-40 bg-slate-900 text-white rounded-2xl shadow-xl p-4 text-xs border border-slate-700 print:hidden">
+    <p class="leading-relaxed text-slate-200">
+      🍪 <strong>Kenya DPA &amp; GDPR Notice:</strong> We use essential session storage and Google AdSense cookies on the Free tier to keep tools free. We never sell or train AI on your CV.
+      <a href="/privacy" class="underline text-emerald-400">Privacy Policy</a>.
+    </p>
+    <div class="flex gap-2 mt-3">
+      <button type="button" onclick="window.ApplyKit.acceptCookies('all')" class="flex-1 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold">Accept &amp; Continue</button>
+      <button type="button" onclick="window.ApplyKit.acceptCookies('essential')" class="px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold">Essential Only</button>
+    </div>
+  </div>
+
+  {% include "components/command_palette.html" %}
+
+  <script src="/static/app.js"></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

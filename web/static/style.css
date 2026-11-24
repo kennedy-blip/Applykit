@@ -1,0 +1,39 @@
+/* ApplyKit Lightweight Custom Styles (<4KB) */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.16s ease-out;
+}
+
+/* Prevent invalid clicks: enforce >=150px separation around AdSense wrappers */
+.adslot-safe-wrapper {
+  margin-top: 10rem !important;
+  margin-bottom: 3rem !important;
+}
+
+header + div .adslot-safe-wrapper {
+  margin-top: 1.5rem !important;
+  margin-bottom: 2.5rem !important;
+}
+
+#atsGaugeArc {
+  transition: stroke-dashoffset 0.7s cubic-bezier(0.22, 1, 0.36, 1), stroke 0.4s ease;
+}
+
+/* Clean A4 PDF print formatting */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #0f172a !important;
+  }
+  .print\:hidden {
+    display: none !important;
+  }
+  article {
+    padding: 0 !important;
+    max-width: 100% !important;
+  }
+}

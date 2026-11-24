@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+<article class="max-w-3xl mx-auto px-4 py-12 space-y-6 text-sm text-slate-700 leading-relaxed">
+  <header>
+    <span class="text-xs font-bold uppercase text-emerald-700">Kenya Data Protection Act (2019) &amp; GDPR Compliant</span>
+    <h1 class="text-3xl font-black text-slate-900 mt-1">Privacy Policy &amp; Data Sovereignty</h1>
+    <p class="text-xs text-slate-500 mt-1">Last updated: November 2026</p>
+  </header>
+
+  <div class="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-950 font-semibold text-xs sm:text-sm">
+    🔒 Core Guarantee: <strong>We DO NOT train AI models on your CV, cover letters, or private notes.</strong> Raw CV text submitted for instant checks is processed ephemerally and only SHA-256 hashes are logged for abuse/quota prevention.
+  </div>
+
+  <section class="space-y-2">
+    <h2 class="text-lg font-extrabold text-slate-900">1. Data We Collect &amp; Minimize</h2>
+    <p>When you sign in via Google OAuth (Supabase Auth), we store your email, display name, subscription tier, and any job applications you choose to save to your Kanban tracker. All tables enforce strict PostgreSQL Row Level Security (<code>auth.uid() = user_id</code>).</p>
+  </section>
+
+  <section class="space-y-2">
+    <h2 class="text-lg font-extrabold text-slate-900">2. Google AdSense &amp; Cookie Disclosure</h2>
+    <p>ApplyKit's Free tier is supported by Google AdSense. Third-party vendors, including Google, use cookies to serve ads based on a user's prior visits to this website or other websites. Users may opt out of personalized advertising by visiting <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener" class="text-emerald-700 underline">Google Ads Settings</a> or selecting "Essential Only" in our consent banner. ApplyKit Pro subscribers see zero third-party advertising scripts.</p>
+  </section>
+
+  <section class="space-y-2">
+    <h2 class="text-lg font-extrabold text-slate-900">3. Payments Security (M-Pesa &amp; Lemon Squeezy)</h2>
+    <p>M-Pesa PINs are entered exclusively on your Safaricom SIM Toolkit and never touch ApplyKit servers. Card payments are processed by Lemon Squeezy, Paystack, or Flutterwave as Merchant of Record.</p>
+  </section>
+
+  <section class="bg-white rounded-2xl border border-rose-200 p-5 space-y-3">
+    <h2 class="text-base font-extrabold text-rose-900">4. Right to Erasure — Delete My Data (Kenya DPA Section 40 / GDPR Art. 17)</h2>
+    <p class="text-xs text-slate-600">Permanently delete your profile, saved Kanban applications, AI usage logs, and uploaded CV files immediately:</p>
+    {% if user.authenticated %}
+    <button type="button" onclick="window.ApplyKit.deleteMyData()" class="px-4 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs">
+      🗑️ Permanently Delete All My Data
+    </button>
+    {% else %}
+    <button type="button" onclick="window.ApplyKit.openLoginModal()" class="px-4 py-2 rounded-xl border border-slate-300 text-slate-700 font-semibold text-xs">
+      Sign in first to delete your account data
+    </button>
+    {% endif %}
+  </section>
+</article>
+{% endblock %}

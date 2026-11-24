@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Hero with Universal "⚡ Ask ApplyKit..." Vault Search Bar -->
+<section class="bg-gradient-to-b from-emerald-950 via-slate-900 to-slate-900 text-white py-14 sm:py-20 px-4">
+  <div class="max-w-4xl mx-auto text-center">
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-400/30 text-emerald-300 text-xs font-semibold mb-5">
+      <span>🌍 Built for Kenya, Nigeria, Ghana &amp; Global Remote Talent</span>
+    </div>
+    <h1 class="text-3xl sm:text-5xl font-black tracking-tight leading-tight">
+      Land Remote Jobs &amp; High-Paying Clients <span class="text-emerald-400">3× Faster</span>
+    </h1>
+    <p class="mt-4 text-sm sm:text-lg text-slate-300 max-w-2xl mx-auto">
+      7 ultra-fast career &amp; tax tools below — plus <strong>60+ hidden AI Vault tools</strong> unlocked on-the-fly when you ask for what you need.
+    </p>
+
+    <!-- Prominent Universal Search Input -->
+    <div class="mt-8 max-w-2xl mx-auto">
+      <div class="relative flex items-center bg-white rounded-2xl p-1.5 shadow-2xl ring-4 ring-emerald-500/20">
+        <span class="pl-3.5 pr-2 text-xl" aria-hidden="true">⚡</span>
+        <input
+          id="heroVaultInput"
+          type="search"
+          placeholder="Ask ApplyKit... try 'resign', 'negotiate salary', 'NDA contract', 'skill gap'"
+          class="w-full py-3 px-2 text-slate-900 placeholder-slate-400 text-sm sm:text-base font-medium focus:outline-none rounded-xl"
+          onkeydown="if(event.key==='Enter'){window.ApplyKit.openPalette(this.value);}"
+        />
+        <button
+          type="button"
+          onclick="window.ApplyKit.openPalette(document.getElementById('heroVaultInput').value)"
+          class="px-5 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shrink-0 transition"
+        >
+          Search Vault
+        </button>
+      </div>
+      <div class="mt-3 flex flex-wrap justify-center gap-2 text-xs text-slate-300">
+        <span class="text-slate-400">Hidden Vault quick-launch:</span>
+        <button type="button" onclick="window.ApplyKit.openPalette('resign')" class="underline hover:text-emerald-300">Resignation Letter</button> ·
+        <button type="button" onclick="window.ApplyKit.openPalette('salary negotiation')" class="underline hover:text-emerald-300">Salary Negotiation Script</button> ·
+        <button type="button" onclick="window.ApplyKit.openPalette('freelance contract nda')" class="underline hover:text-emerald-300">Freelance Contract + NDA</button> ·
+        <button type="button" onclick="window.ApplyKit.openPalette('upwork bio')" class="underline hover:text-emerald-300">Upwork Bio Optimizer</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ONLY the 7 Visible Showcase Tools (Hub Concept Enforced Strictly) -->
+<section class="max-w-6xl mx-auto px-4 py-14">
+  <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-8">
+    <div>
+      <span class="text-xs font-bold uppercase tracking-wider text-emerald-700">Daily Core Toolkit</span>
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-0.5">7 Showcase Career &amp; Freelance Tools</h2>
+    </div>
+    <p class="text-xs sm:text-sm text-slate-500">Need something else? Type in <strong>⚡ Ask ApplyKit...</strong> to summon 60+ hidden Vault tools.</p>
+  </div>
+
+  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+    {% for tool in visible_tools %}
+    <a
+      href="{{ tool.url }}"
+      class="group bg-white rounded-2xl border border-slate-200 hover:border-emerald-500 p-5 shadow-sm hover:shadow-md transition flex flex-col justify-between"
+    >
+      <div>
+        <div class="flex items-center justify-between mb-3">
+          <span class="text-2xl w-11 h-11 rounded-xl bg-emerald-50 flex items-center justify-center">{{ tool.icon }}</span>
+          {% if tool.requires_ai %}
+          <span class="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800">AI Powered</span>
+          {% else %}
+          <span class="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-800">100% Free Instant JS</span>
+          {% endif %}
+        </div>
+        <h3 class="font-bold text-base text-slate-900 group-hover:text-emerald-700 transition">{{ tool.name }}</h3>
+        <p class="text-xs text-slate-600 mt-1.5 leading-relaxed">{{ tool.description }}</p>
+      </div>
+      <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-emerald-700">
+        <span>Open Tool</span>
+        <span class="group-hover:translate-x-1 transition">→</span>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- Multi-Browser Extension Banner -->
+<section class="max-w-6xl mx-auto px-4 pb-8">
+  <div class="rounded-3xl bg-slate-900 text-white p-7 sm:p-10 grid md:grid-cols-2 gap-8 items-center">
+    <div>
+      <span class="inline-block text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 mb-3">
+        Chrome · Edge · Brave · Opera · Firefox
+      </span>
+      <h2 class="text-2xl sm:text-3xl font-extrabold leading-tight">
+        Floating ⚡ Widget Inside Upwork &amp; LinkedIn
+      </h2>
+      <p class="text-sm text-slate-300 mt-3 leading-relaxed">
+        See instant Match Scores on job cards, highlight matched/missing skills in green &amp; red, inspect Upwork client hire-rate warnings, insert 150-word proposals in 1 click, and auto-save every application to your Kanban Dashboard.
+      </p>
+      <div class="flex flex-wrap gap-3 mt-6">
+        <button
+          type="button"
+          onclick="window.ApplyKit.openExtensionConsentModal()"
+          class="px-4 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-xs sm:text-sm transition"
+        >
+          ⚡ Auto-Add to My Browser (Allow / Deny) →
+        </button>
+        <a href="/dashboard" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-xs sm:text-sm transition">
+          Open Kanban Tracker
+        </a>
+        <a href="/pricing" class="px-4 py-2.5 rounded-xl bg-slate-800/60 hover:bg-slate-700 text-slate-200 font-semibold text-xs sm:text-sm transition">
+          Compare Free vs Pro (750 KES / $6)
+        </a>
+      </div>
+    </div>
+    <div class="bg-slate-800/80 border border-slate-700 rounded-2xl p-5 space-y-3 text-xs">
+      <div class="flex items-center justify-between border-b border-slate-700 pb-2.5">
+        <span class="font-bold text-emerald-400">⚡ ApplyKit Live Job Overlay</span>
+        <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-bold">88% Match</span>
+      </div>
+      <div class="p-3 rounded-xl bg-slate-900/70 space-y-1.5">
+        <div class="font-semibold text-white">Senior Python &amp; FastAPI Engineer (Remote)</div>
+        <div class="text-slate-400">Client Verified · $42,000+ spent · 74% hire rate · <span class="text-emerald-400 font-semibold">Scam Risk: Low</span></div>
+      </div>
+      <div class="flex flex-wrap gap-1.5">
+        <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300">✓ FastAPI</span>
+        <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300">✓ Supabase</span>
+        <span class="px-2 py-0.5 rounded bg-rose-500/20 text-rose-300">✗ Redis</span>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

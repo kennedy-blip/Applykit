@@ -1,0 +1,164 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto px-4 py-8">
+  <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+    <div>
+      <span class="text-xs font-bold uppercase tracking-wider text-emerald-700">Auto-Synced Across Web + Browser Extension</span>
+      <h1 class="text-2xl sm:text-3xl font-black text-slate-900">Job Application Kanban &amp; Analytics</h1>
+    </div>
+    <div class="flex flex-wrap gap-2">
+      <a href="/extension" class="px-3.5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs sm:text-sm font-bold shadow-sm">
+        🧩 Install Extension
+      </a>
+      <button type="button" onclick="window.ApplyKit.openAddAppModal()" class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-bold shadow-sm">
+        + Add Application
+      </button>
+      <button type="button" onclick="window.ApplyKit.exportAppsCsv()" class="px-4 py-2.5 rounded-xl bg-white border border-slate-300 hover:bg-slate-50 text-slate-800 text-xs sm:text-sm font-semibold">
+        📥 Export CSV {% if not user.is_pro %}<span class="text-[10px] text-amber-700 font-bold">(Pro)</span>{% endif %}
+      </button>
+    </div>
+  </div>
+
+  {% if not user.authenticated %}
+  <div class="bg-white rounded-2xl border border-slate-200 p-8 text-center max-w-lg mx-auto my-10 shadow-sm">
+    <div class="text-3xl mb-3">📋</div>
+    <h2 class="text-xl font-extrabold text-slate-900">Sign In Free to Track Your Applications</h2>
+    <p class="text-xs sm:text-sm text-slate-600 mt-2">
+      Sync Applied, Interview, Offer &amp; Rejected jobs automatically from our Upwork/LinkedIn browser extension across Chrome, Edge &amp; Firefox.
+    </p>
+    <button type="button" onclick="window.ApplyKit.openLoginModal()" class="mt-5 px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm">
+      Sign In Free to Open Dashboard
+    </button>
+  </div>
+  {% else %}
+  <!-- Top Stats + Weekly Goal Bar -->
+  <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+    <div class="bg-white rounded-2xl border border-slate-200 p-4">
+      <div class="text-xs text-slate-500 font-semibold">Total Applications</div>
+      <div class="flex items-baseline gap-2 mt-1">
+        <span id="statTotalApps" class="text-2xl font-black text-slate-900">0</span>
+        {% if not user.is_pro %}<span class="text-xs text-slate-400">/ 20 Free</span>{% endif %}
+      </div>
+    </div>
+    <div class="bg-white rounded-2xl border border-slate-200 p-4">
+      <div class="text-xs text-slate-500 font-semibold">Interview Conversion Rate</div>
+      <div id="statInterviewRate" class="text-2xl font-black text-emerald-700 mt-1">0%</div>
+      <!-- Mini Funnel Bar Chart -->
+      <div class="w-full h-1.5 bg-slate-100 rounded-full mt-2 overflow-hidden">
+        <div id="statInterviewBar" class="h-full bg-emerald-500" style="width: 0%"></div>
+      </div>
+    </div>
+    <div class="bg-white rounded-2xl border border-slate-200 p-4">
+      <div class="flex justify-between text-xs font-semibold">
+        <span class="text-slate-500">Weekly Goal (10/wk)</span>
+        <span id="statWeeklyLabel" class="text-emerald-700">0 / 10</span>
+      </div>
+      <div class="w-full h-2.5 bg-slate-100 rounded-full mt-3 overflow-hidden">
+        <div id="statWeeklyBar" class="h-full bg-emerald-600 transition-all" style="width: 0%"></div>
+      </div>
+    </div>
+    <div class="bg-white rounded-2xl border border-slate-200 p-4">
+      <div class="text-xs text-slate-500 font-semibold">7-Day Follow-Ups Due</div>
+      <div id="statFollowupsCount" class="text-2xl font-black text-amber-600 mt-1">0</div>
+      <div class="text-[11px] text-slate-400">Applications &gt;7 days in Applied</div>
+    </div>
+  </div>
+
+  <div class="grid lg:grid-cols-4 gap-6 items-start">
+    <div class="{% if not user.is_pro %}lg:col-span-3{% else %}lg:col-span-4{% endif %} space-y-5">
+      <!-- Search & Filter Bar -->
+      <div class="bg-white rounded-2xl border border-slate-200 p-3.5 flex flex-col sm:flex-row gap-3">
+        <input
+          id="dashSearchInput"
+          type="search"
+          placeholder="Search by job title, company, platform, or private notes..."
+          oninput="window.ApplyKit.loadDashboard()"
+          class="flex-1 rounded-xl border border-slate-300 px-3.5 py-2 text-xs sm:text-sm"
+        />
+        <select id="dashStatusFilter" onchange="window.ApplyKit.loadDashboard()" class="rounded-xl border border-slate-300 px-3 py-2 text-xs sm:text-sm bg-white">
+          <option value="">All Stages</option>
+          <option value="Applied">Applied</option>
+          <option value="Interview">Interview</option>
+          <option value="Offer">Offer</option>
+          <option value="Rejected">Rejected</option>
+        </select>
+      </div>
+
+      <!-- 4-Column Drag-and-Drop Kanban Board -->
+      <div class="grid sm:grid-cols-2 xl:grid-cols-4 gap-4" id="kanbanBoard">
+        {% for stage, badge_cls in [('Applied', 'bg-blue-100 text-blue-800'), ('Interview', 'bg-amber-100 text-amber-900'), ('Offer', 'bg-emerald-100 text-emerald-900'), ('Rejected', 'bg-rose-100 text-rose-800')] %}
+        <div
+          class="bg-slate-100/90 rounded-2xl p-3 border border-slate-200 min-h-[320px] flex flex-col"
+          data-kanban-stage="{{ stage }}"
+          ondragover="event.preventDefault()"
+          ondrop="window.ApplyKit.handleKanbanDrop(event, '{{ stage }}')"
+        >
+          <div class="flex items-center justify-between mb-3 px-1">
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-extrabold {{ badge_cls }}">{{ stage }}</span>
+            <span id="countStage{{ stage }}" class="text-xs font-bold text-slate-500">0</span>
+          </div>
+          <div id="colStage{{ stage }}" class="space-y-2.5 flex-1"></div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Sidebar AdSlot for Free Users Only + Referral Boost -->
+    {% if not user.is_pro %}
+    <aside class="space-y-4">
+      <div class="bg-emerald-950 text-white rounded-2xl p-4 text-xs space-y-2">
+        <div class="font-extrabold text-emerald-300">🎁 Invite Friends = +5 Free AI Runs</div>
+        <p class="text-slate-300 leading-relaxed">Share your invite link on WhatsApp to earn +5 monthly AI generations per friend.</p>
+        <input readonly value="{{ BACKEND_URL }}/?ref={{ user.referral_code }}" onclick="this.select()" class="w-full rounded-lg bg-slate-900 border border-slate-700 px-2.5 py-1.5 text-[11px] text-emerald-200" />
+      </div>
+      {% with slot_position="dashboard-sidebar" %}{% include "components/adslot.html" %}{% endwith %}
+    </aside>
+    {% endif %}
+  </div>
+  {% endif %}
+</div>
+
+<!-- Add / Edit Application Modal -->
+<div id="addAppModal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+  <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl border border-slate-200 p-6">
+    <div class="flex items-center justify-between mb-4">
+      <h3 class="font-extrabold text-lg text-slate-900">Save Job Application</h3>
+      <button type="button" onclick="document.getElementById('addAppModal').classList.add('hidden')" class="text-slate-400 hover:text-slate-700 font-bold">✕</button>
+    </div>
+    <form onsubmit="window.ApplyKit.saveNewApp(event)" class="space-y-3 text-xs sm:text-sm">
+      <input id="appTitle" required placeholder="Job Title (e.g. Remote Python Engineer)" class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5" />
+      <div class="grid grid-cols-2 gap-2.5">
+        <input id="appCompany" placeholder="Company / Client" class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5" />
+        <select id="appPlatform" class="w-full rounded-xl border border-slate-300 px-3 py-2.5 bg-white">
+          <option value="Upwork">Upwork</option>
+          <option value="LinkedIn">LinkedIn</option>
+          <option value="Direct">Direct / Company Site</option>
+          <option value="Fuzu / BrighterMonday">Fuzu / BrighterMonday</option>
+        </select>
+      </div>
+      <div class="grid grid-cols-2 gap-2.5">
+        <input id="appSalary" placeholder="Salary / Rate (e.g. $30/hr)" class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5" />
+        <select id="appStatus" class="w-full rounded-xl border border-slate-300 px-3 py-2.5 bg-white">
+          <option value="Applied">Applied</option>
+          <option value="Interview">Interview</option>
+          <option value="Offer">Offer</option>
+          <option value="Rejected">Rejected</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-[11px] font-bold text-slate-600 mb-1">Interview Date &amp; Time (Optional — generates WhatsApp Reminder)</label>
+        <input id="appInterviewAt" type="datetime-local" class="w-full rounded-xl border border-slate-300 px-3.5 py-2" />
+      </div>
+      <textarea id="appNotes" rows="2" placeholder="Private notes (client hire rate, contact person, salary expectations)..." class="w-full rounded-xl border border-slate-300 p-3"></textarea>
+      <button type="submit" class="w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold">Save to Kanban</button>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{% if user.authenticated %}
+<script>document.addEventListener('DOMContentLoaded', () => window.ApplyKit.loadDashboard());</script>
+{% endif %}
+{% endblock %}

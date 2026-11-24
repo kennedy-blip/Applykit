@@ -1,0 +1,1341 @@
+{
+  "version": "1.0.0",
+  "hub_name": "ApplyKit",
+  "tools": [
+    {
+      "id": "ats-checker",
+      "name": "ATS CV Match Checker",
+      "icon": "🎯",
+      "category": "CV & Applications",
+      "visible": true,
+      "url": "/tools/ats-checker",
+      "requires_ai": true,
+      "description": "Instant ATS match score /100, missing vs matched keywords, and 1-click AI CV bullet optimization.",
+      "keywords": [
+        "ats",
+        "cv score",
+        "resume checker",
+        "match score",
+        "keywords",
+        "applicant tracking",
+        "cv match",
+        "tailor cv"
+      ],
+      "platforms": [
+        "upwork_job",
+        "linkedin_job",
+        "generic_job"
+      ]
+    },
+    {
+      "id": "cover-letter-generator",
+      "name": "150-Word Cover Letter & Proposal Writer",
+      "icon": "✍️",
+      "category": "CV & Applications",
+      "visible": true,
+      "url": "/tools/cover-letter-generator",
+      "requires_ai": true,
+      "description": "High-converting 150-word cover letters & Upwork proposals tailored to your CV and tone.",
+      "keywords": [
+        "cover letter",
+        "proposal",
+        "upwork proposal",
+        "application letter",
+        "motivation letter",
+        "write proposal"
+      ],
+      "platforms": [
+        "upwork_job",
+        "linkedin_job",
+        "generic_job"
+      ]
+    },
+    {
+      "id": "freelance-rate-calculator",
+      "name": "Freelance Hourly Rate Calculator (Africa + Global)",
+      "icon": "💰",
+      "category": "Finance & Tax",
+      "visible": true,
+      "url": "/tools/freelance-rate-calculator",
+      "requires_ai": false,
+      "description": "Calculate exact USD/hr rate factoring target KES/NGN/GHS income, Upwork 10% fee, withdrawal & KRA tax.",
+      "keywords": [
+        "freelance rate",
+        "hourly rate",
+        "upwork fee",
+        "rate calculator",
+        "charge per hour",
+        "kes to usd rate",
+        "freelancer pricing"
+      ],
+      "platforms": [
+        "upwork_profile"
+      ]
+    },
+    {
+      "id": "paye-calculator-kenya-2026",
+      "name": "PAYE Tax Calculator 2026 (Kenya, Nigeria, Ghana)",
+      "icon": "🧮",
+      "category": "Finance & Tax",
+      "visible": true,
+      "url": "/tools/paye-calculator-kenya-2026",
+      "requires_ai": false,
+      "description": "2026 net salary breakdown with KRA PAYE bands, SHIF 2.75%, NSSF Tier I/II & Housing Levy (+ Nigeria/Ghana).",
+      "keywords": [
+        "paye",
+        "kra tax",
+        "net salary",
+        "kenya tax",
+        "shif",
+        "nssf",
+        "housing levy",
+        "nigeria paye",
+        "ghana paye",
+        "payslip",
+        "salary calculator"
+      ],
+      "platforms": []
+    },
+    {
+      "id": "scam-detector",
+      "name": "Job & Client Scam Detector",
+      "icon": "🛡️",
+      "category": "Safety & Research",
+      "visible": true,
+      "url": "/tools/scam-detector",
+      "requires_ai": true,
+      "description": "Spot fake jobs, Telegram recruitment traps, advance-fee scams, and shady Upwork clients in seconds.",
+      "keywords": [
+        "scam",
+        "fake job",
+        "legit",
+        "red flags",
+        "telegram scam",
+        "fraud",
+        "scam check",
+        "client risk",
+        "verify job"
+      ],
+      "platforms": [
+        "upwork_job",
+        "linkedin_job",
+        "generic_job"
+      ]
+    },
+    {
+      "id": "invoice-generator",
+      "name": "Instant Freelance Invoice Generator (M-Pesa + Bank)",
+      "icon": "🧾",
+      "category": "Finance & Tax",
+      "visible": true,
+      "url": "/tools/invoice-generator",
+      "requires_ai": false,
+      "description": "Clean printable PDF invoices with M-Pesa Till/Paybill, USD Wire, Paystack, or Wise payment details.",
+      "keywords": [
+        "invoice",
+        "bill client",
+        "receipt",
+        "pdf invoice",
+        "mpesa invoice",
+        "freelance invoice",
+        "billing"
+      ],
+      "platforms": []
+    },
+    {
+      "id": "interview-questions-generator",
+      "name": "Role-Specific Interview Questions & Answers",
+      "icon": "🎤",
+      "category": "Interviews",
+      "visible": true,
+      "url": "/tools/interview-questions-generator",
+      "requires_ai": true,
+      "description": "Generate 10 tailored behavioral & technical interview questions with STAR sample answers from your CV.",
+      "keywords": [
+        "interview questions",
+        "interview prep",
+        "star answers",
+        "behavioral questions",
+        "technical interview",
+        "prepare interview"
+      ],
+      "platforms": [
+        "linkedin_job",
+        "generic_job"
+      ]
+    },
+    {
+      "id": "cv-fixer-rewriter",
+      "name": "AI CV Bullet Rewriter & Impact Quantifier",
+      "icon": "🔧",
+      "category": "Hidden Vault",
+      "visible": false,
+      "url": null,
+      "requires_ai": true,
+      "description": "Rewrite weak CV bullets into high-impact XYZ achievement statements tailored to a target role.",
+      "keywords": [
+        "rewrite cv",
+        "fix cv",
+        "cv fixer",
+        "resume bullets",
+        "quantify achievements",
+        "improve resume",
+        "tailor resume",
+        "cv rewriter"
+      ],
+      "input_label": "Paste your current CV bullets and target job title/description",
+      "input_placeholder": "e.g. Target Role: Senior Backend Engineer. Current bullets: Worked on APIs, fixed bugs, maintained database...",
+      "prompt_template": "Rewrite the user's CV bullets using Google's XYZ formula (Accomplished [X] as measured by [Y], by doing [Z]) tailored to the target role. Return JSON with keys: {\"title\": \"Optimized CV Bullets\", \"summary\": \"1-sentence overview\", \"sections\": [{\"heading\": \"Rewritten High-Impact Bullets\", \"items\": [\"...\"]}, {\"heading\": \"ATS Keywords Injected\", \"items\": [\"...\"]}], \"copy_text\": \"Full ready-to-paste CV section\"}."
+    },
+    {
+      "id": "linkedin-headline-optimizer",
+      "name": "LinkedIn Headline & About Optimizer",
+      "icon": "💼",
+      "category": "Hidden Vault",
+      "visible": false,
+      "url": null,
+      "requires_ai": true,
+      "description": "Generate 5 recruiter-magnet LinkedIn headlines (220 chars) and a conversion-focused About summary.",
+      "keywords": [
+        "linkedin headline",
+        "linkedin bio",
+        "linkedin about",
+        "linkedin profile",
+        "recruiter seo",
+        "optimize linkedin"
+      ],
+      "input_label": "Paste your current role, top skills, and target opportunities",
+      "input_placeholder": "e.g. Full-Stack Python/React developer in Nairobi, 4 yrs fintech experience, open to remote global roles...",
+      "prompt_template": "Create 5 recruiter-optimized LinkedIn headlines (under 220 characters each) and 1 compelling LinkedIn 'About' summary. Return JSON: {\"title\": \"LinkedIn Profile Optimization\", \"summary\": \"Optimized for recruiter boolean search\", \"sections\": [{\"heading\": \"5 High-CTR Headlines\", \"items\": [\"...\"]}, {\"heading\": \"Optimized About Section\", \"items\": [\"...\"]}], \"copy_text\": \"Best headline + full About text\"}."
+    },
+    {
+      "id": "upwork-bio-optimizer",
+      "name": "Upwork Top-Rated Profile & Bio Optimizer",
+      "icon": "🟢",
+      "category": "Hidden Vault",
+      "visible": false,
+      "url": null,
+      "requires_ai": true,
+      "description": "Craft a client-converting Upwork title + first-2-lines hook + specialized profile overview.",
+      "keywords": [
+        "upwork bio",
+        "upwork profile",
+        "upwork overview",
+        "upwork title",
+        "freelance bio",
+        "fiverr gig description"
+      ],
+      "input_label": "Describe your freelance niche, top results, and tools",
+      "input_placeholder": "e.g. Virtual Assistant & HubSpot CRM specialist, helped 15 startups automate lead gen...",
+      "prompt_template": "Write a high-converting Upwork profile (Title <=70 chars, killer first 180-char mobile preview hook, proof-driven body, and CTA). Return JSON: {\"title\": \"Upwork Profile Makeover\", \"summary\": \"Designed to win client clicks in search preview\", \"sections\": [{\"heading\": \"Recommended Profile Titles\", \"items\": [\"...\"]}, {\"heading\": \"Full Profile Overview\", \"items\": [\"...\"]}], \"copy_text\": \"Full Upwork overview ready to paste\"}."
+    },
+    {
+      "id": "job-summarizer-tldr",
+      "name": "Job Description TL;DR & Hidden Requirements Decoder",
+      "icon": "⚡",
+      "category": "Hidden Vault",
+      "visible": false,
+      "url": null,
+      "requires_ai": true,
+      "description": "Turn a 2,000-word corporate JD into a 30-second TL;DR: real daily tasks, must-haves vs nice-to-haves, and culture clues.",
+      "keywords": [
+        "summarize job",
+        "tldr",
+        "job summary",
+        "decode jd",
+        "explain job",
+        "what do they actually want",
+        "job summarizer"
+      ],
+      "input_label": "Paste the long job description",
+      "input_placeholder": "Paste verbose job post here...",
+      "prompt_template": "Decode this job description into plain English. Return JSON: {\"title\": \"Job Post TL;DR Decoder\", \"summary\": \"Plain-English breakdown of what this role really is\", \"sections\": [{\"heading\": \"Actual Day-to-Day Work\", \"items\": [\"...\"]}, {\"heading\": \"True Non-Negotiables\", \"items\": [\"...\"]}, {\"heading\": \"Hidden Culture Signals / Watchouts\", \"items\": [\"...\"]}], \"copy_text\": \"Concise summary notes\"}."
+    },
+    {
+      "id": "skill-gap-analyzer",
+      "name": "Skill Gap Analyzer + Free YouTube Learning Roadmap",
+      "icon": "🗺️",
+      "category": "Hidden Vault",
+      "visible": false,
+      "url": null,
+      "requires_ai": true,
+      "description": "Compare your current skills against your dream role and get a 4-week project + YouTube search roadmap.",
+      "keywords": [
+        "skill gap",
+        "roadmap",
+        "youtube roadmap",
+        "learn skills",
+        "missing skills",
+        "upskill",
+        "career switch",
+        "study plan"
+      ],
+      "input_label": "List your current skills + target job role/JD",
+      "input_placeholder": "e.g. Current: Excel, basic SQL. Target: Remote Data Analyst ($25/hr)...",
+      "prompt_template": "Analyze the user's skill gaps for the target role and generate a 4-week actionable roadmap with exact free YouTube search queries and portfolio mini-projects. Return JSON: {\"title\": \"4-Week Skill Gap & YouTube Roadmap\", \"summary\": \"Fastest path to job-readiness\", \"sections\": [{\"heading\": \"Critical Missing Skills\", \"items\": [\"...\"]}, {\"heading\": \"Week-by-Week YouTube Search Queries & Mini-Projects\", \"items\": [\"Week 1: ...\", \"Week 2: ...\", \"Week 3: ...\", \"Week 4: ...\"]}], \"copy_text\": \"Complete 4-week study plan\"}."
+    },
+    {
+      "id": "salary-negotiation-script",
+      "name": "Salary & Rate Negotiation Script Generator",
+      "icon": "🤝",
+      "category": "Hidden Vault",
+      "visible": false,
+      "url": null,
+      "requires_ai": true,
+      "description": "Word-for-word email + live call scripts to counter a lowball offer by +15–30% without losing the offer.",
+      "keywords": [
+        "negotiate",
+        "salary negotiation",
+        "counter offer",
+        "raise",
+        "lowball",
+        "ask for more money",
+        "rate increase"
+      ],
+      "input_label": "Share current offer amount, target amount, and role context",
+      "input_placeholder": "e.g. Offered $1,800/mo for Remote Customer Success Lead, market rate is $2,400/mo...",
+      "prompt_template": "Generate a diplomatic, high-leverage salary/rate counter-offer email and live phone script. Return JSON: {\"title\": \"Salary & Rate Counter-Offer Playbook\", \"summary\": \"Polite, anchored negotiation strategy\", \"sections\": [{\"heading\": \"Email Counter-Offer Script\", \"items\": [\"...\"]}, {\"heading\": \"Phone / Zoom Pushback Responses\", \"items\": [\"...\"]}], \"copy_text\": \"Ready-to-send negotiation email\"}."
+    },
+    {
+      "id": "followup-email-after-interview",
+      "name": "Post-Interview Follow-Up & Thank-You Email",
+      "icon": "📩",
+      "category": "Hidden Vault",
+      "visible": false,
+      "url": null,
+      "requires_ai": true,
+      "description": "Stand out 2 hours or 7 days after an interview with a value-add follow-up email.",
+      "keywords": [
+        "follow up",
+        "followup",
+        "thank you email",
+        "after interview",
+        "ghosted",
+        "no response",
+        "check application status"
+      ],
+      "input_label": "Interviewer name/role, key topic discussed, and days since interview",
+      "input_placeholder": "e.g. Spoke with Sarah (VP Product) 5 days ago about Q3 onboarding funnel...",
+      "prompt_template": "Write two concise follow-up emails: (1) Same-day thank-you note and (2) 7-day polite status check if ghosted. Return JSON: {\"title\": \"Post-Interview Follow-Up Emails\", \"summary\": \"Warm, memorable, zero desperation\", \"sections\": [{\"heading\": \"Option 1: Value-Add Thank You\", \"items\": [\"...\"]}, {\"heading\": \"Option 2: 7-Day Polite Bump\", \"items\": [\"...\"]}], \"copy_text\": \"Best follow-up email text\"}."
+    },
+    {
+      "id": "resignation-letter-generator",
+      "name": "Resignation Letter Generator",
+      "icon": "👋",
+      "category": "Hidden Vault",
+      "visible": false,
+      "url": null,
+      "requires_ai": true,
+      "description": "Graceful, legally clean resignation letter with notice period, handover commitment, and bridge-preserving tone.",
+      "keywords": [
+        "resign",
+        "resignation",
+        "quit job",
+        "two weeks notice",
+        "notice period",
+        "leave company",
+        "resignation letter"
+      ],
+      "input_label": "Your role, company name, manager name, and last working day / notice period",
+      "input_placeholder": "e.g. Software Developer at Acme Ltd, Manager John Kamau, 1-month notice ending Dec 31...",
+      "prompt_template": "Draft a professional, bridge-preserving formal resignation letter plus a short Slack/WhatsApp heads-up message for the manager. Return JSON: {\"title\": \"Professional Resignation Letter\", \"summary\": \"Clean formal notice + handover offer\", \"sections\": [{\"heading\": \"Formal Resignation Letter\", \"items\": [\"...\"]}, {\"heading\": \"Short Manager Heads-Up Message\", \"items\": [\"...\"]}], \"copy_text\": \"Full formal resignation letter\"}."
+    },
+    {
+      "id": "acceptance-letter-generator",
+      "name": "Job Offer Acceptance Letter Generator",
+      "icon": "🎉",
+      "category": "Hidden Vault",
+      "visible": false,
+      "url": null,
+      "requires_ai": true,
+      "description": "Confirm salary, start date, remote terms, and enthusiasm in a crisp offer acceptance email.",
+      "keywords": [
+        "accept offer",
+        "acceptance letter",
+        "job offer email",
+        "confirm start date",
+        "accept job"
+      ],
+      "input_label": "Role title, company, agreed salary, and start date",
+      "input_placeholder": "e.g. Product Designer at Paystack, $3,500/mo remote, starting Jan 15...",
+      "prompt_template": "Write a polished job offer acceptance email confirming start date, compensation, and onboarding next steps. Return JSON: {\"title\": \"Offer Acceptance Email\", \"summary\": \"Clear written confirmation of agreed terms\", \"sections\": [{\"heading\": \"Acceptance Email\", \"items\": [\"...\"]}], \"copy_text\": \"Full offer acceptance email\"}."
+    },
+    {
+      "id": "offer-analyzer",
+      "name": "Job Offer & Contract Red-Flag Analyzer",
+      "icon": "🔍",
+      "category": "Hidden Vault",
+      "visible": false,
+      "url": null,
+      "requires_ai": true,
+      "description": "Paste an employment or contractor offer letter to check IP clauses, non-competes, notice traps, and true net value.",
+      "keywords": [
+        "offer analyzer",
+        "employment contract",
+        "review offer",
+        "non compete",
+        "contract clauses",
+        "compare offers"
+      ],
+      "input_label": "Paste your offer letter or contract clauses",
+      "input_placeholder": "Paste compensation, termination, IP, and exclusivity clauses here...",
+      "prompt_template": "Review this job/contractor offer for hidden risks, unfair non-competes, IP overreach, and missing protections (not legal advice, practical career review). Return JSON: {\"title\": \"Offer & Clause Risk Review\", \"summary\": \"Key strengths, red flags, and questions to ask HR\", \"sections\": [{\"heading\": \"Clauses to Watch / Clarify\", \"items\": [\"...\"]}, {\"heading\": \"Questions to Ask Before Signing\", \"items\": [\"...\"]}], \"copy_text\": \"Clarification questions email for HR\"}."
+    },
+    {
+      "id": "freelance-contract-generator",
+      "name": "Freelance Service Agreement + NDA Generator",
+      "icon": "📜",
+      "category": "Hidden Vault",
+      "visible": false,
+      "url": null,
+      "requires_ai": true,
+      "description": "Generate a milestone-based freelance contract with 50% upfront deposit, scope creep guard, kill fee, and mutual NDA.",
+      "keywords": [
+        "contract",
+        "nda",
+        "freelance agreement",
+        "service agreement",
+        "scope of work",
+        "non disclosure",
+        "client contract"
+      ],
+      "input_label": "Freelancer name, client name, deliverables, price, and timeline",
+      "input_placeholder": "e.g. Jane Wanjiku building E-commerce website for Savanna Coffee, $1,200 (50% upfront), 3 weeks...",
+      "prompt_template": "Draft a clear, protective Freelance Independent Contractor Agreement + Mutual NDA clause including scope boundaries, revision cap (2 rounds), 50% deposit, IP transfer upon full payment, and kill fee. Return JSON: {\"title\": \"Freelance Contract + Mutual NDA\", \"summary\": \"Client-ready agreement with deposit & IP protection\", \"sections\": [{\"heading\": \"Independent Contractor Agreement\", \"items\": [\"...\"]}, {\"heading\": \"Mutual Confidentiality (NDA) Clause\", \"items\": [\"...\"]}], \"copy_text\": \"Complete contract + NDA text\"}."
+    },
+    {
+      "id": "mock-interviewer-chat",
+      "name": "AI Hiring Manager Mock Interview Simulator",
+      "icon": "🧠",
+      "category": "Hidden Vault",
+      "visible": false,
+      "url": null,
+      "requires_ai": true,
+      "description": "Paste your draft answer or target role for tough hiring-manager grill questions + graded scorecard.",
+      "keywords": [
+        "mock interview",
+        "practice interview",
+        "interview simulator",
+        "grade my answer",
+        "interview feedback"
+      ],
+      "input_label": "Paste the role + a question and your draft answer (or ask for a tough prompt)",
+      "input_placeholder": "e.g. Role: DevOps Engineer. Question: Tell me about an outage you resolved. My answer: ...",
+      "prompt_template": "Act as a senior hiring manager. Grade the candidate's answer out of 10 (or pose 3 tough curveball questions if no answer provided) and provide an upgraded 10/10 STAR version. Return JSON: {\"title\": \"Hiring Manager Mock Feedback\", \"summary\": \"Direct scorecard + 10/10 model response\", \"sections\": [{\"heading\": \"Critique & Score\", \"items\": [\"...\"]}, {\"heading\": \"10/10 Upgraded STAR Answer & Follow-up Curveballs\", \"items\": [\"...\"]}], \"copy_text\": \"Upgraded 10/10 STAR answer\"}."
+    },
+    {
+      "id": "portfolio-one-page-builder",
+      "name": "One-Page Case Study & Portfolio Copy Builder",
+      "icon": "🎨",
+      "category": "Hidden Vault",
+      "visible": false,
+      "url": null,
+      "requires_ai": true,
+      "description": "Turn messy past projects into crisp Problem -> Action -> Measurable Result portfolio case studies.",
+      "keywords": [
+        "portfolio",
+        "case study",
+        "personal website",
+        "project showcase",
+        "no experience portfolio",
+        "one page portfolio"
+      ],
+      "input_label": "Describe 1-3 projects or tasks you worked on",
+      "input_placeholder": "e.g. Built inventory tracker in Python for a local pharmacy, reduced stockouts...",
+      "prompt_template": "Transform these project notes into a clean one-page portfolio hero + Problem/Solution/Impact case studies. Return JSON: {\"title\": \"One-Page Portfolio Copy\", \"summary\": \"Conversion-focused portfolio structure\", \"sections\": [{\"heading\": \"Hero Headline & Bio\", \"items\": [\"...\"]}, {\"heading\": \"Case Study Breakdowns\", \"items\": [\"...\"]}], \"copy_text\": \"Complete Markdown portfolio page\"}."
+    },
+    {
+      "id": "proposal-pricing-helper",
+      "name": "3-Tier Proposal Pricing & Milestone Strategist",
+      "icon": "📊",
+      "category": "Hidden Vault",
+      "visible": false,
+      "url": null,
+      "requires_ai": true,
+      "description": "Package any client brief into Basic / Standard / Premium tiers + milestone schedule to double average deal size.",
+      "keywords": [
+        "proposal pricing",
+        "quote project",
+        "how much to charge",
+        "milestones",
+        "tiered pricing",
+        "project estimate"
+      ],
+      "input_label": "Paste client project brief and your rough minimum budget",
+      "input_placeholder": "e.g. Client wants mobile UI redesign (12 screens), my minimum is $600...",
+      "prompt_template": "Create a 3-tier value-based pricing proposal (Starter, Growth Recommended, Scale) plus safe Upwork/direct milestones. Return JSON: {\"title\": \"3-Tier Project Pricing Strategy\", \"summary\": \"Anchor higher value without scaring price-sensitive clients\", \"sections\": [{\"heading\": \"3 Pricing Packages\", \"items\": [\"...\"]}, {\"heading\": \"Recommended Milestone Payment Schedule\", \"items\": [\"...\"]}], \"copy_text\": \"Client-facing pricing options block\"}."
+    },
+    {
+      "id": "cold-pitch-generator",
+      "name": "Cold Email & LinkedIn DM Pitch Generator",
+      "icon": "🚀",
+      "category": "Hidden Vault",
+      "visible": false,
+      "url": null,
+      "requires_ai": true,
+      "description": "75-word hyper-relevant cold emails and LinkedIn DMs to founders & hiring managers that actually get replies.",
+      "keywords": [
+        "cold email",
+        "cold dm",
+        "outreach",
+        "cold pitch",
+        "dm founder",
+        "message recruiter",
+        "pitch client"
+      ],
+      "input_label": "Target company/founder, pain point you noticed, and what you offer",
+      "input_placeholder": "e.g. Pitching B2B SaaS founder whose blog hasn't updated in 4 months; I write technical SEO posts...",
+      "prompt_template": "Write 3 ultra-concise (<75 words) cold outreach messages: Direct Value Email, Loom Audit Teaser, and LinkedIn Connection Note (<300 chars). Return JSON: {\"title\": \"High-Reply Cold Outreach Pack\", \"summary\": \"Zero fluff, problem-first outreach\", \"sections\": [{\"heading\": \"75-Word Cold Emails\", \"items\": [\"...\"]}, {\"heading\": \"LinkedIn Connection Note (<300 chars)\", \"items\": [\"...\"]}], \"copy_text\": \"Top cold email + subject line\"}."
+    },
+    {
+      "id": "referral-request-generator",
+      "name": "Employee Referral Request Message Generator",
+      "icon": "🔗",
+      "category": "Hidden Vault",
+      "visible": false,
+      "url": null,
+      "requires_ai": true,
+      "description": "Polite, zero-awkwardness messages asking alumni, ex-colleagues, or strangers for an internal job referral.",
+      "keywords": [
+        "referral",
+        "ask for referral",
+        "employee referral",
+        "internal referral",
+        "alumni message",
+        "network"
+      ],
+      "input_label": "Target company, job ID/title, your connection to the person, and your top match proof",
+      "input_placeholder": "e.g. Asking fellow UoN alumnus at Microsoft for Backend SWE role #19283...",
+      "prompt_template": "Write warm, low-friction referral request messages (1 for warm acquaintance, 1 for cold alumnus/peer) plus a 3-line 'blurb they can paste into the internal portal'. Return JSON: {\"title\": \"Internal Referral Request Kit\", \"summary\": \"Makes saying YES effortless for your contact\", \"sections\": [{\"heading\": \"Outreach Messages\", \"items\": [\"...\"]}, {\"heading\": \"Ready-to-Paste 3rd-Person Referral Blurb\", \"items\": [\"...\"]}], \"copy_text\": \"Referral request message + blurb\"}."
+    },
+    {
+      "id": "upwork-job-win-estimator",
+      "name": "Upwork Connects ROI & Win Probability Advisor",
+      "icon": "🎲",
+      "category": "Hidden Vault",
+      "visible": false,
+      "url": null,
+      "requires_ai": true,
+      "description": "Decide whether to spend 16–24 Connects on a job post or skip it based on client hire rate, competition, and fit.",
+      "keywords": [
+        "connects",
+        "should i apply",
+        "win probability",
+        "boost proposal",
+        "upwork connects",
+        "worth applying"
+      ],
+      "input_label": "Paste Upwork job details, client hire rate/spend, proposals count, and your skill match",
+      "input_placeholder": "e.g. 20-50 proposals, client spent $15k (65% hire rate), 16 connects required...",
+      "prompt_template": "Calculate whether spending Upwork Connects on this job has positive ROI, whether to boost, and the #1 angle to win. Return JSON: {\"title\": \"Connects ROI & Win Verdict\", \"summary\": \"Apply / Skip / Boost recommendation\", \"sections\": [{\"heading\": \"ROI Breakdown & Verdict\", \"items\": [\"...\"]}, {\"heading\": \"Winning Hook Angle\", \"items\": [\"...\"]}], \"copy_text\": \"Opening hook if applying\"}."
+    },
+    {
+      "id": "remote-timezone-overlap-planner",
+      "name": "Remote Async & Timezone Overlap Pitch Builder",
+      "icon": "🌍",
+      "category": "Hidden Vault",
+      "visible": false,
+      "url": null,
+      "requires_ai": true,
+      "description": "Overcome 'US/EU timezone only' objections by framing EAT/WAT overlap hours as an async superpower.",
+      "keywords": [
+        "timezone",
+        "remote overlap",
+        "eat to est",
+        "async work",
+        "location objection",
+        "work from africa",
+        "us hours"
+      ],
+      "input_label": "Your timezone/city, client's timezone, and role type",
+      "input_placeholder": "e.g. Based in Nairobi (UTC+3), applying to New York (EST) startup for QA Engineer...",
+      "prompt_template": "Calculate exact daily overlap hours and write a persuasive paragraph turning the candidate's African/global timezone into a speed & handoff advantage. Return JSON: {\"title\": \"Timezone Overlap & Async Pitch\", \"summary\": \"Turn geography objections into a hiring advantage\", \"sections\": [{\"heading\": \"Exact Daily Overlap Schedule\", \"items\": [\"...\"]}, {\"heading\": \"Objection-Handling Pitch Paragraph\", \"items\": [\"...\"]}], \"copy_text\": \"Ready-to-paste timezone reassurance paragraph\"}."
+    },
+    {
+      "id": "client-scope-creep-pushback",
+      "name": "Polite Scope Creep Pushback & Change-Order Writer",
+      "icon": "🚧",
+      "category": "Hidden Vault",
+      "visible": false,
+      "url": null,
+      "requires_ai": true,
+      "description": "Say 'yes, and here is the add-on cost' when a freelance client sneaks unpaid extra tasks into your contract.",
+      "keywords": [
+        "scope creep",
+        "extra work",
+        "unpaid revisions",
+        "client asking extra",
+        "change order",
+        "pushback client"
+      ],
+      "input_label": "Original agreed scope vs extra request the client just asked for",
+      "input_placeholder": "e.g. Agreed to design 5 landing pages; client now asking for email automation setup for free...",
+      "prompt_template": "Write a friendly, firm 'Yes, and here is the mini change-order' message that protects revenue and keeps 5-star client goodwill. Return JSON: {\"title\": \"Scope Creep Change-Order Reply\", \"summary\": \"Warm, firm boundary + paid upsell framing\", \"sections\": [{\"heading\": \"Diplomatic Client Reply\", \"items\": [\"...\"]}, {\"heading\": \"Softer Alternative (Swap Scope)\", \"items\": [\"...\"]}], \"copy_text\": \"Ready-to-send client reply\"}."
+    },
+    {
+      "id": "career-gap-explainer",
+      "name": "Employment Gap & Layoff Story Reframer",
+      "icon": "🧭",
+      "category": "Hidden Vault",
+      "visible": false,
+      "url": null,
+      "requires_ai": true,
+      "description": "Confidently explain a layoff, caregiving break, failed startup, or 1-year job hunt in CV & interviews.",
+      "keywords": [
+        "career gap",
+        "employment gap",
+        "laid off",
+        "layoff",
+        "unemployed",
+        "explain gap",
+        "resume gap"
+      ],
+      "input_label": "Duration of gap, honest reason, and any freelancing/projects done meanwhile",
+      "input_placeholder": "e.g. 9-month gap after fintech downsizing in 2025, built 2 open-source tools & took AWS cert...",
+      "prompt_template": "Craft a confident 1-line CV entry + 30-second spoken interview explanation for an employment gap without oversharing or apologizing. Return JSON: {\"title\": \"Career Gap Reframe Kit\", \"summary\": \"Forward-looking, confident positioning\", \"sections\": [{\"heading\": \"1-Line CV Entry\", \"items\": [\"...\"]}, {\"heading\": \"30-Second Interview Script\", \"items\": [\"...\"]}], \"copy_text\": \"30-second spoken script\"}."
+    },
+    {
+      "id": "reference-check-prep-kit",
+      "name": "Reference Check Briefing Email Generator",
+      "icon": "🏅",
+      "category": "Hidden Vault",
+      "visible": false,
+      "url": null,
+      "requires_ai": true,
+      "description": "Brief your former managers/clients before HR calls them so they highlight the exact strengths the new role needs.",
+      "keywords": [
+        "reference check",
+        "referee",
+        "former manager",
+        "ask for reference",
+        "recommendation",
+        "linkedin recommendation"
+      ],
+      "input_label": "Referee name/relationship, new role you are finalist for, and 2 wins you had together",
+      "input_placeholder": "e.g. Former Tech Lead Grace, finalist for Senior Python Dev, built payment reconciliation together...",
+      "prompt_template": "Write a thoughtful heads-up email to a former manager/client preparing them for a reference check with 3 bullet reminders of shared wins. Return JSON: {\"title\": \"Referee Prep & Heads-Up Email\", \"summary\": \"Helps your referee give a glowing, specific endorsement\", \"sections\": [{\"heading\": \"Referee Briefing Email\", \"items\": [\"...\"]}], \"copy_text\": \"Full referee heads-up email\"}."
+    },
+    {
+      "id": "visa-sponsorship-inquiry-writer",
+      "name": "Remote EOR / Visa Sponsorship Inquiry Script",
+      "icon": "✈️",
+      "category": "Hidden Vault",
+      "visible": false,
+      "url": null,
+      "requires_ai": true,
+      "description": "Ask international employers about Deel/Remote.com contractor hiring or visa sponsorship without getting auto-rejected.",
+      "keywords": [
+        "visa sponsorship",
+        "deel",
+        "employer of record",
+        "hire internationally",
+        "relocation",
+        "work permit",
+        "contractor vs fte"
+      ],
+      "input_label": "Company location, your country, and stage of application",
+      "input_placeholder": "e.g. UK Series A startup, I'm in Kenya, passed technical screen, want to pitch hiring via Deel contractor...",
+      "prompt_template": "Write a strategic message pitching zero-headache international hiring via Deel/Remote.com or B2B invoicing (or inquiring smoothly about visa sponsorship). Return JSON: {\"title\": \"Global Hiring & Deel/Visa Pitch\", \"summary\": \"Removes compliance fear for international hiring managers\", \"sections\": [{\"heading\": \"Deel / B2B Contractor Pitch\", \"items\": [\"...\"]}, {\"heading\": \"Visa Sponsorship Question\", \"items\": [\"...\"]}], \"copy_text\": \"Ready-to-send recruiter message\"}."
+    },
+    {
+      "id": "github-readme-career-polisher",
+      "name": "GitHub Profile & Project README Polisher",
+      "icon": "💻",
+      "category": "Hidden Vault",
+      "visible": false,
+      "url": null,
+      "requires_ai": true,
+      "description": "Turn a bare GitHub repo into an engineering showcase that impresses CTOs reviewing your code.",
+      "keywords": [
+        "github",
+        "readme",
+        "developer portfolio",
+        "open source",
+        "engineering profile",
+        "github bio"
+      ],
+      "input_label": "Describe your repo/stack or GitHub profile highlights",
+      "input_placeholder": "e.g. FastAPI + Postgres reconciliation microservice handling M-Pesa webhooks...",
+      "prompt_template": "Generate a senior-level GitHub README structure (Problem, Architecture, Benchmarks, Quickstart) that signals production maturity to hiring CTOs. Return JSON: {\"title\": \"CTO-Ready GitHub README\", \"summary\": \"Highlights engineering tradeoffs & business impact\", \"sections\": [{\"heading\": \"Key Sections & Badges\", \"items\": [\"...\"]}, {\"heading\": \"Markdown README Template\", \"items\": [\"...\"]}], \"copy_text\": \"Complete Markdown README\"}."
+    },
+    {
+      "id": "upwork-dispute-protection-reply",
+      "name": "Upwork Dispute & Escrow Protection Writer",
+      "icon": "⚖️",
+      "category": "Hidden Vault",
+      "visible": false,
+      "url": null,
+      "requires_ai": true,
+      "description": "Draft a calm, evidence-backed Upwork dispute/mediation response protecting Hourly/Milestone Escrow.",
+      "keywords": [
+        "dispute",
+        "refund request",
+        "escrow",
+        "unhappy client"
+      ],
+      "input_label": "Share your context, role, or draft details",
+      "input_placeholder": "Describe details for Upwork Dispute & Escrow Protection Writer...",
+      "prompt_template": "Draft a calm, evidence-backed Upwork dispute/mediation response protecting Hourly/Milestone Escrow. Return JSON: {\"title\": \"Upwork Dispute & Escrow Protection Writer\", \"summary\": \"Actionable career output\", \"sections\": [{\"heading\": \"Tailored Output\", \"items\": [\"...\"]}, {\"heading\": \"Key Next Steps\", \"items\": [\"...\"]}], \"copy_text\": \"Complete ready-to-use text\"}."
+    },
+    {
+      "id": "linkedin-connection-followup-sequence",
+      "name": "3-Step LinkedIn Recruiter Follow-Up Sequence",
+      "icon": "🔁",
+      "category": "Hidden Vault",
+      "visible": false,
+      "url": null,
+      "requires_ai": true,
+      "description": "Write a 3-touch LinkedIn message sequence to a technical recruiter without sounding pushy.",
+      "keywords": [
+        "recruiter dm",
+        "linkedin sequence",
+        "unanswered dm"
+      ],
+      "input_label": "Share your context, role, or draft details",
+      "input_placeholder": "Describe details for 3-Step LinkedIn Recruiter Follow-Up Sequence...",
+      "prompt_template": "Write a 3-touch LinkedIn message sequence to a technical recruiter without sounding pushy. Return JSON: {\"title\": \"3-Step LinkedIn Recruiter Follow-Up Sequence\", \"summary\": \"Actionable career output\", \"sections\": [{\"heading\": \"Tailored Output\", \"items\": [\"...\"]}, {\"heading\": \"Key Next Steps\", \"items\": [\"...\"]}], \"copy_text\": \"Complete ready-to-use text\"}."
+    },
+    {
+      "id": "kra-freelance-tax-checklist",
+      "name": "Kenya KRA Foreign Income & Withholding Tax Guide",
+      "icon": "🇰🇪",
+      "category": "Hidden Vault",
+      "visible": false,
+      "url": null,
+      "requires_ai": true,
+      "description": "Provide a practical KRA compliance checklist for Kenyan remote contractors billing US/EU clients.",
+      "keywords": [
+        "kra pin",
+        "itax",
+        "withholding tax",
+        "foreign freelance tax kenya"
+      ],
+      "input_label": "Share your context, role, or draft details",
+      "input_placeholder": "Describe details for Kenya KRA Foreign Income & Withholding Tax Guide...",
+      "prompt_template": "Provide a practical KRA compliance checklist for Kenyan remote contractors billing US/EU clients. Return JSON: {\"title\": \"Kenya KRA Foreign Income & Withholding Tax Guide\", \"summary\": \"Actionable career output\", \"sections\": [{\"heading\": \"Tailored Output\", \"items\": [\"...\"]}, {\"heading\": \"Key Next Steps\", \"items\": [\"...\"]}], \"copy_text\": \"Complete ready-to-use text\"}."
+    },
+    {
+      "id": "nigeria-domiciliary-invoice-helper",
+      "name": "Nigeria USD/GBP Domiciliary Billing & Tax Guide",
+      "icon": "🇳🇬",
+      "category": "Hidden Vault",
+      "visible": false,
+      "url": null,
+      "requires_ai": true,
+      "description": "Create clear USD/EUR invoicing & FIRS tax notes for Nigerian remote freelancers.",
+      "keywords": [
+        "domiciliary",
+        "nigeria freelancer",
+        "grey co",
+        "geegpay",
+        "firs"
+      ],
+      "input_label": "Share your context, role, or draft details",
+      "input_placeholder": "Describe details for Nigeria USD/GBP Domiciliary Billing & Tax Guide...",
+      "prompt_template": "Create clear USD/EUR invoicing & FIRS tax notes for Nigerian remote freelancers. Return JSON: {\"title\": \"Nigeria USD/GBP Domiciliary Billing & Tax Guide\", \"summary\": \"Actionable career output\", \"sections\": [{\"heading\": \"Tailored Output\", \"items\": [\"...\"]}, {\"heading\": \"Key Next Steps\", \"items\": [\"...\"]}], \"copy_text\": \"Complete ready-to-use text\"}."
+    },
+    {
+      "id": "ghana-gra-remote-worker-guide",
+      "name": "Ghana GRA Remote Income & Mobile Money Guide",
+      "icon": "🇬🇭",
+      "category": "Hidden Vault",
+      "visible": false,
+      "url": null,
+      "requires_ai": true,
+      "description": "Summarize GRA remote contractor filing steps & invoice wording for Ghanaian talent.",
+      "keywords": [
+        "ghana tax",
+        "gra remote",
+        "mtn momo",
+        "accra remote"
+      ],
+      "input_label": "Share your context, role, or draft details",
+      "input_placeholder": "Describe details for Ghana GRA Remote Income & Mobile Money Guide...",
+      "prompt_template": "Summarize GRA remote contractor filing steps & invoice wording for Ghanaian talent. Return JSON: {\"title\": \"Ghana GRA Remote Income & Mobile Money Guide\", \"summary\": \"Actionable career output\", \"sections\": [{\"heading\": \"Tailored Output\", \"items\": [\"...\"]}, {\"heading\": \"Key Next Steps\", \"items\": [\"...\"]}], \"copy_text\": \"Complete ready-to-use text\"}."
+    },
+    {
+      "id": "ats-plain-text-formatter",
+      "name": "ATS-Safe Plain-Text CV Layout Cleaner",
+      "icon": "🧹",
+      "category": "Hidden Vault",
+      "visible": false,
+      "url": null,
+      "requires_ai": true,
+      "description": "Convert messy multi-column/table CV text into clean single-column ATS-readable sections.",
+      "keywords": [
+        "cv format",
+        "two column cv",
+        "tables in cv",
+        "fix formatting"
+      ],
+      "input_label": "Share your context, role, or draft details",
+      "input_placeholder": "Describe details for ATS-Safe Plain-Text CV Layout Cleaner...",
+      "prompt_template": "Convert messy multi-column/table CV text into clean single-column ATS-readable sections. Return JSON: {\"title\": \"ATS-Safe Plain-Text CV Layout Cleaner\", \"summary\": \"Actionable career output\", \"sections\": [{\"heading\": \"Tailored Output\", \"items\": [\"...\"]}, {\"heading\": \"Key Next Steps\", \"items\": [\"...\"]}], \"copy_text\": \"Complete ready-to-use text\"}."
+    },
+    {
+      "id": "executive-bio-100-words",
+      "name": "100-Word Speaker & Executive Bio Writer",
+      "icon": "🎙️",
+      "category": "Hidden Vault",
+      "visible": false,
+      "url": null,
+      "requires_ai": true,
+      "description": "Write 3 versions of a crisp 100-word professional bio (1st person, 3rd person, 1-liner).",
+      "keywords": [
+        "speaker bio",
+        "short bio",
+        "about me",
+        "conference bio"
+      ],
+      "input_label": "Share your context, role, or draft details",
+      "input_placeholder": "Describe details for 100-Word Speaker & Executive Bio Writer...",
+      "prompt_template": "Write 3 versions of a crisp 100-word professional bio (1st person, 3rd person, 1-liner). Return JSON: {\"title\": \"100-Word Speaker & Executive Bio Writer\", \"summary\": \"Actionable career output\", \"sections\": [{\"heading\": \"Tailored Output\", \"items\": [\"...\"]}, {\"heading\": \"Key Next Steps\", \"items\": [\"...\"]}], \"copy_text\": \"Complete ready-to-use text\"}."
+    },
+    {
+      "id": "upwork-video-loom-script",
+      "name": "60-Second Loom Video Proposal Script",
+      "icon": "🎥",
+      "category": "Hidden Vault",
+      "visible": false,
+      "url": null,
+      "requires_ai": true,
+      "description": "Write a 60-second Loom screen-audit script to attach to an Upwork proposal for 4x reply rate.",
+      "keywords": [
+        "loom",
+        "video proposal",
+        "video pitch",
+        "screen recording"
+      ],
+      "input_label": "Share your context, role, or draft details",
+      "input_placeholder": "Describe details for 60-Second Loom Video Proposal Script...",
+      "prompt_template": "Write a 60-second Loom screen-audit script to attach to an Upwork proposal for 4x reply rate. Return JSON: {\"title\": \"60-Second Loom Video Proposal Script\", \"summary\": \"Actionable career output\", \"sections\": [{\"heading\": \"Tailored Output\", \"items\": [\"...\"]}, {\"heading\": \"Key Next Steps\", \"items\": [\"...\"]}], \"copy_text\": \"Complete ready-to-use text\"}."
+    },
+    {
+      "id": "take-home-assignment-readme",
+      "name": "Take-Home Coding/Design Test Submission Note",
+      "icon": "📦",
+      "category": "Hidden Vault",
+      "visible": false,
+      "url": null,
+      "requires_ai": true,
+      "description": "Write an impressive architecture tradeoffs & assumptions note to accompany a take-home test.",
+      "keywords": [
+        "take home test",
+        "coding challenge",
+        "assignment submission",
+        "design task"
+      ],
+      "input_label": "Share your context, role, or draft details",
+      "input_placeholder": "Describe details for Take-Home Coding/Design Test Submission Note...",
+      "prompt_template": "Write an impressive architecture tradeoffs & assumptions note to accompany a take-home test. Return JSON: {\"title\": \"Take-Home Coding/Design Test Submission Note\", \"summary\": \"Actionable career output\", \"sections\": [{\"heading\": \"Tailored Output\", \"items\": [\"...\"]}, {\"heading\": \"Key Next Steps\", \"items\": [\"...\"]}], \"copy_text\": \"Complete ready-to-use text\"}."
+    },
+    {
+      "id": "unpaid-test-task-counter",
+      "name": "Unpaid 'Test Project' Diplomatic Counter-Offer",
+      "icon": "🛑",
+      "category": "Hidden Vault",
+      "visible": false,
+      "url": null,
+      "requires_ai": true,
+      "description": "Politely decline unpaid spec work and counter with a small paid 2-hour micro-milestone.",
+      "keywords": [
+        "free test",
+        "unpaid trial",
+        "sample work free",
+        "paid trial"
+      ],
+      "input_label": "Share your context, role, or draft details",
+      "input_placeholder": "Describe details for Unpaid 'Test Project' Diplomatic Counter-Offer...",
+      "prompt_template": "Politely decline unpaid spec work and counter with a small paid 2-hour micro-milestone. Return JSON: {\"title\": \"Unpaid 'Test Project' Diplomatic Counter-Offer\", \"summary\": \"Actionable career output\", \"sections\": [{\"heading\": \"Tailored Output\", \"items\": [\"...\"]}, {\"heading\": \"Key Next Steps\", \"items\": [\"...\"]}], \"copy_text\": \"Complete ready-to-use text\"}."
+    },
+    {
+      "id": "probation-review-self-appraisal",
+      "name": "90-Day Probation & Performance Self-Appraisal Writer",
+      "icon": "📈",
+      "category": "Hidden Vault",
+      "visible": false,
+      "url": null,
+      "requires_ai": true,
+      "description": "Turn raw tasks completed in your first 90 days into a promotion/confirmation self-review.",
+      "keywords": [
+        "probation",
+        "performance review",
+        "self appraisal",
+        "kpi review"
+      ],
+      "input_label": "Share your context, role, or draft details",
+      "input_placeholder": "Describe details for 90-Day Probation & Performance Self-Appraisal Writer...",
+      "prompt_template": "Turn raw tasks completed in your first 90 days into a promotion/confirmation self-review. Return JSON: {\"title\": \"90-Day Probation & Performance Self-Appraisal Writer\", \"summary\": \"Actionable career output\", \"sections\": [{\"heading\": \"Tailored Output\", \"items\": [\"...\"]}, {\"heading\": \"Key Next Steps\", \"items\": [\"...\"]}], \"copy_text\": \"Complete ready-to-use text\"}."
+    },
+    {
+      "id": "annual-raise-business-case",
+      "name": "Annual Salary Raise Business Case Memo",
+      "icon": "💵",
+      "category": "Hidden Vault",
+      "visible": false,
+      "url": null,
+      "requires_ai": true,
+      "description": "Build a data-backed 1-page business case requesting a 15–25% salary adjustment.",
+      "keywords": [
+        "ask for raise",
+        "promotion request",
+        "annual review",
+        "compensation adjustment"
+      ],
+      "input_label": "Share your context, role, or draft details",
+      "input_placeholder": "Describe details for Annual Salary Raise Business Case Memo...",
+      "prompt_template": "Build a data-backed 1-page business case requesting a 15–25% salary adjustment. Return JSON: {\"title\": \"Annual Salary Raise Business Case Memo\", \"summary\": \"Actionable career output\", \"sections\": [{\"heading\": \"Tailored Output\", \"items\": [\"...\"]}, {\"heading\": \"Key Next Steps\", \"items\": [\"...\"]}], \"copy_text\": \"Complete ready-to-use text\"}."
+    },
+    {
+      "id": "toxic-boss-exit-timeline",
+      "name": "Safe 60-Day Job Exit & Financial Runway Planner",
+      "icon": "🛟",
+      "category": "Hidden Vault",
+      "visible": false,
+      "url": null,
+      "requires_ai": true,
+      "description": "Create a step-by-step 60-day confidential job search + emergency runway checklist before resigning.",
+      "keywords": [
+        "burnout",
+        "toxic job",
+        "exit plan",
+        "quit safely"
+      ],
+      "input_label": "Share your context, role, or draft details",
+      "input_placeholder": "Describe details for Safe 60-Day Job Exit & Financial Runway Planner...",
+      "prompt_template": "Create a step-by-step 60-day confidential job search + emergency runway checklist before resigning. Return JSON: {\"title\": \"Safe 60-Day Job Exit & Financial Runway Planner\", \"summary\": \"Actionable career output\", \"sections\": [{\"heading\": \"Tailored Output\", \"items\": [\"...\"]}, {\"heading\": \"Key Next Steps\", \"items\": [\"...\"]}], \"copy_text\": \"Complete ready-to-use text\"}."
+    },
+    {
+      "id": "fiverr-gig-seo-pack",
+      "name": "Fiverr Gig Title, Tags & 3-Package Builder",
+      "icon": "🟢",
+      "category": "Hidden Vault",
+      "visible": false,
+      "url": null,
+      "requires_ai": true,
+      "description": "Generate SEO-optimized Fiverr gig title, 5 search tags, Basic/Standard/Pro tiers, and FAQ.",
+      "keywords": [
+        "fiverr",
+        "gig seo",
+        "fiverr tags",
+        "fiverr packages"
+      ],
+      "input_label": "Share your context, role, or draft details",
+      "input_placeholder": "Describe details for Fiverr Gig Title, Tags & 3-Package Builder...",
+      "prompt_template": "Generate SEO-optimized Fiverr gig title, 5 search tags, Basic/Standard/Pro tiers, and FAQ. Return JSON: {\"title\": \"Fiverr Gig Title, Tags & 3-Package Builder\", \"summary\": \"Actionable career output\", \"sections\": [{\"heading\": \"Tailored Output\", \"items\": [\"...\"]}, {\"heading\": \"Key Next Steps\", \"items\": [\"...\"]}], \"copy_text\": \"Complete ready-to-use text\"}."
+    },
+    {
+      "id": "toptal-screening-prep",
+      "name": "Toptal & Vetted Network Screening Prep Coach",
+      "icon": "🏆",
+      "category": "Hidden Vault",
+      "visible": false,
+      "url": null,
+      "requires_ai": true,
+      "description": "Prepare communication, live-coding, and portfolio answers for Toptal/Andela/Turing screening.",
+      "keywords": [
+        "toptal",
+        "andela",
+        "turing",
+        "crossover",
+        "vetting interview"
+      ],
+      "input_label": "Share your context, role, or draft details",
+      "input_placeholder": "Describe details for Toptal & Vetted Network Screening Prep Coach...",
+      "prompt_template": "Prepare communication, live-coding, and portfolio answers for Toptal/Andela/Turing screening. Return JSON: {\"title\": \"Toptal & Vetted Network Screening Prep Coach\", \"summary\": \"Actionable career output\", \"sections\": [{\"heading\": \"Tailored Output\", \"items\": [\"...\"]}, {\"heading\": \"Key Next Steps\", \"items\": [\"...\"]}], \"copy_text\": \"Complete ready-to-use text\"}."
+    },
+    {
+      "id": "behavioral-failure-story-builder",
+      "name": "'Biggest Weakness / Failure' Interview Story Builder",
+      "icon": "🧩",
+      "category": "Hidden Vault",
+      "visible": false,
+      "url": null,
+      "requires_ai": true,
+      "description": "Turn a real workplace mistake into an authentic, high-maturity growth answer.",
+      "keywords": [
+        "biggest weakness",
+        "tell me about a failure",
+        "mistake at work"
+      ],
+      "input_label": "Share your context, role, or draft details",
+      "input_placeholder": "Describe details for 'Biggest Weakness / Failure' Interview Story Builder...",
+      "prompt_template": "Turn a real workplace mistake into an authentic, high-maturity growth answer. Return JSON: {\"title\": \"'Biggest Weakness / Failure' Interview Story Builder\", \"summary\": \"Actionable career output\", \"sections\": [{\"heading\": \"Tailored Output\", \"items\": [\"...\"]}, {\"heading\": \"Key Next Steps\", \"items\": [\"...\"]}], \"copy_text\": \"Complete ready-to-use text\"}."
+    },
+    {
+      "id": "why-should-we-hire-you-pitch",
+      "name": "60-Second 'Tell Me About Yourself' Elevator Pitch",
+      "icon": "⏱️",
+      "category": "Hidden Vault",
+      "visible": false,
+      "url": null,
+      "requires_ai": true,
+      "description": "Craft a Present-Past-Future 60-second interview opener tailored to the target role.",
+      "keywords": [
+        "tell me about yourself",
+        "why hire you",
+        "elevator pitch",
+        "introduce yourself"
+      ],
+      "input_label": "Share your context, role, or draft details",
+      "input_placeholder": "Describe details for 60-Second 'Tell Me About Yourself' Elevator Pitch...",
+      "prompt_template": "Craft a Present-Past-Future 60-second interview opener tailored to the target role. Return JSON: {\"title\": \"60-Second 'Tell Me About Yourself' Elevator Pitch\", \"summary\": \"Actionable career output\", \"sections\": [{\"heading\": \"Tailored Output\", \"items\": [\"...\"]}, {\"heading\": \"Key Next Steps\", \"items\": [\"...\"]}], \"copy_text\": \"Complete ready-to-use text\"}."
+    },
+    {
+      "id": "questions-to-ask-interviewer",
+      "name": "Reverse-Interview Questions for Founders & VPs",
+      "icon": "❓",
+      "category": "Hidden Vault",
+      "visible": false,
+      "url": null,
+      "requires_ai": true,
+      "description": "Generate 7 sharp reverse-interview questions that signal senior strategic thinking.",
+      "keywords": [
+        "questions to ask interviewer",
+        "end of interview",
+        "ask hiring manager"
+      ],
+      "input_label": "Share your context, role, or draft details",
+      "input_placeholder": "Describe details for Reverse-Interview Questions for Founders & VPs...",
+      "prompt_template": "Generate 7 sharp reverse-interview questions that signal senior strategic thinking. Return JSON: {\"title\": \"Reverse-Interview Questions for Founders & VPs\", \"summary\": \"Actionable career output\", \"sections\": [{\"heading\": \"Tailored Output\", \"items\": [\"...\"]}, {\"heading\": \"Key Next Steps\", \"items\": [\"...\"]}], \"copy_text\": \"Complete ready-to-use text\"}."
+    },
+    {
+      "id": "ghosted-client-revival-ping",
+      "name": "Ghosted Freelance Client 9-Word Revival Email",
+      "icon": "👻",
+      "category": "Hidden Vault",
+      "visible": false,
+      "url": null,
+      "requires_ai": true,
+      "description": "Write 3 ultra-short non-needy follow-up pings to revive silent freelance prospects.",
+      "keywords": [
+        "client ghosted",
+        "proposal follow up",
+        "revive lead"
+      ],
+      "input_label": "Share your context, role, or draft details",
+      "input_placeholder": "Describe details for Ghosted Freelance Client 9-Word Revival Email...",
+      "prompt_template": "Write 3 ultra-short non-needy follow-up pings to revive silent freelance prospects. Return JSON: {\"title\": \"Ghosted Freelance Client 9-Word Revival Email\", \"summary\": \"Actionable career output\", \"sections\": [{\"heading\": \"Tailored Output\", \"items\": [\"...\"]}, {\"heading\": \"Key Next Steps\", \"items\": [\"...\"]}], \"copy_text\": \"Complete ready-to-use text\"}."
+    },
+    {
+      "id": "testimonial-request-writer",
+      "name": "5-Star Upwork Feedback & LinkedIn Testimonial Ask",
+      "icon": "⭐",
+      "category": "Hidden Vault",
+      "visible": false,
+      "url": null,
+      "requires_ai": true,
+      "description": "Write a warm project wrap-up message that nudges clients to leave a detailed 5-star review.",
+      "keywords": [
+        "testimonial",
+        "client review",
+        "5 star feedback",
+        "ask for review"
+      ],
+      "input_label": "Share your context, role, or draft details",
+      "input_placeholder": "Describe details for 5-Star Upwork Feedback & LinkedIn Testimonial Ask...",
+      "prompt_template": "Write a warm project wrap-up message that nudges clients to leave a detailed 5-star review. Return JSON: {\"title\": \"5-Star Upwork Feedback & LinkedIn Testimonial Ask\", \"summary\": \"Actionable career output\", \"sections\": [{\"heading\": \"Tailored Output\", \"items\": [\"...\"]}, {\"heading\": \"Key Next Steps\", \"items\": [\"...\"]}], \"copy_text\": \"Complete ready-to-use text\"}."
+    },
+    {
+      "id": "retainer-upsell-pitch",
+      "name": "One-Off Project to Monthly Retainer Upsell Pitch",
+      "icon": "🔄",
+      "category": "Hidden Vault",
+      "visible": false,
+      "url": null,
+      "requires_ai": true,
+      "description": "Convert a completed one-off freelance project into a predictable $500–$2,000/mo retainer.",
+      "keywords": [
+        "retainer",
+        "monthly maintenance",
+        "recurring revenue",
+        "upsell client"
+      ],
+      "input_label": "Share your context, role, or draft details",
+      "input_placeholder": "Describe details for One-Off Project to Monthly Retainer Upsell Pitch...",
+      "prompt_template": "Convert a completed one-off freelance project into a predictable $500–$2,000/mo retainer. Return JSON: {\"title\": \"One-Off Project to Monthly Retainer Upsell Pitch\", \"summary\": \"Actionable career output\", \"sections\": [{\"heading\": \"Tailored Output\", \"items\": [\"...\"]}, {\"heading\": \"Key Next Steps\", \"items\": [\"...\"]}], \"copy_text\": \"Complete ready-to-use text\"}."
+    },
+    {
+      "id": "rate-increase-existing-client",
+      "name": "Existing Client Rate Increase Notice Letter",
+      "icon": "📣",
+      "category": "Hidden Vault",
+      "visible": false,
+      "url": null,
+      "requires_ai": true,
+      "description": "Notify long-term freelance clients of a 20% rate update with 30-day goodwill notice.",
+      "keywords": [
+        "increase hourly rate",
+        "raise freelance rate",
+        "price increase"
+      ],
+      "input_label": "Share your context, role, or draft details",
+      "input_placeholder": "Describe details for Existing Client Rate Increase Notice Letter...",
+      "prompt_template": "Notify long-term freelance clients of a 20% rate update with 30-day goodwill notice. Return JSON: {\"title\": \"Existing Client Rate Increase Notice Letter\", \"summary\": \"Actionable career output\", \"sections\": [{\"heading\": \"Tailored Output\", \"items\": [\"...\"]}, {\"heading\": \"Key Next Steps\", \"items\": [\"...\"]}], \"copy_text\": \"Complete ready-to-use text\"}."
+    },
+    {
+      "id": "late-invoice-payment-chaser",
+      "name": "Overdue Invoice Firm Payment Chaser (3 Escalation Levels)",
+      "icon": "⏰",
+      "category": "Hidden Vault",
+      "visible": false,
+      "url": null,
+      "requires_ai": true,
+      "description": "Generate Gentle (+3d), Firm (+14d), and Final Notice (+30d) overdue invoice emails.",
+      "keywords": [
+        "late payment",
+        "overdue invoice",
+        "client not paying",
+        "chase invoice"
+      ],
+      "input_label": "Share your context, role, or draft details",
+      "input_placeholder": "Describe details for Overdue Invoice Firm Payment Chaser (3 Escalation Levels)...",
+      "prompt_template": "Generate Gentle (+3d), Firm (+14d), and Final Notice (+30d) overdue invoice emails. Return JSON: {\"title\": \"Overdue Invoice Firm Payment Chaser (3 Escalation Levels)\", \"summary\": \"Actionable career output\", \"sections\": [{\"heading\": \"Tailored Output\", \"items\": [\"...\"]}, {\"heading\": \"Key Next Steps\", \"items\": [\"...\"]}], \"copy_text\": \"Complete ready-to-use text\"}."
+    },
+    {
+      "id": "nda-plain-english-translator",
+      "name": "Client NDA Plain-English Clause Translator",
+      "icon": "🔎",
+      "category": "Hidden Vault",
+      "visible": false,
+      "url": null,
+      "requires_ai": true,
+      "description": "Summarize key obligations, duration, and traps inside a client's NDA in plain English.",
+      "keywords": [
+        "read nda",
+        "nda risks",
+        "confidentiality clause"
+      ],
+      "input_label": "Share your context, role, or draft details",
+      "input_placeholder": "Describe details for Client NDA Plain-English Clause Translator...",
+      "prompt_template": "Summarize key obligations, duration, and traps inside a client's NDA in plain English. Return JSON: {\"title\": \"Client NDA Plain-English Clause Translator\", \"summary\": \"Actionable career output\", \"sections\": [{\"heading\": \"Tailored Output\", \"items\": [\"...\"]}, {\"heading\": \"Key Next Steps\", \"items\": [\"...\"]}], \"copy_text\": \"Complete ready-to-use text\"}."
+    },
+    {
+      "id": "career-pivot-transferable-skills",
+      "name": "Industry Switcher Transferable Skills Mapper",
+      "icon": "🔀",
+      "category": "Hidden Vault",
+      "visible": false,
+      "url": null,
+      "requires_ai": true,
+      "description": "Map experience from banking/ops/teaching/support into tech, product, or remote ops roles.",
+      "keywords": [
+        "career change",
+        "switch career",
+        "transferable skills",
+        "pivot"
+      ],
+      "input_label": "Share your context, role, or draft details",
+      "input_placeholder": "Describe details for Industry Switcher Transferable Skills Mapper...",
+      "prompt_template": "Map experience from banking/ops/teaching/support into tech, product, or remote ops roles. Return JSON: {\"title\": \"Industry Switcher Transferable Skills Mapper\", \"summary\": \"Actionable career output\", \"sections\": [{\"heading\": \"Tailored Output\", \"items\": [\"...\"]}, {\"heading\": \"Key Next Steps\", \"items\": [\"...\"]}], \"copy_text\": \"Complete ready-to-use text\"}."
+    },
+    {
+      "id": "internship-attachment-application-kenya",
+      "name": "Industrial Attachment & Graduate Trainee Application Kit",
+      "icon": "🎓",
+      "category": "Hidden Vault",
+      "visible": false,
+      "url": null,
+      "requires_ai": true,
+      "description": "Write a standout industrial attachment / graduate trainee cover letter + CV objective.",
+      "keywords": [
+        "attachment",
+        "internship",
+        "graduate trainee",
+        "kenya attachment letter"
+      ],
+      "input_label": "Share your context, role, or draft details",
+      "input_placeholder": "Describe details for Industrial Attachment & Graduate Trainee Application Kit...",
+      "prompt_template": "Write a standout industrial attachment / graduate trainee cover letter + CV objective. Return JSON: {\"title\": \"Industrial Attachment & Graduate Trainee Application Kit\", \"summary\": \"Actionable career output\", \"sections\": [{\"heading\": \"Tailored Output\", \"items\": [\"...\"]}, {\"heading\": \"Key Next Steps\", \"items\": [\"...\"]}], \"copy_text\": \"Complete ready-to-use text\"}."
+    },
+    {
+      "id": "ngo-un-personal-history-p11-helper",
+      "name": "UN / NGO Competency-Based Cover Letter & P11 Builder",
+      "icon": "🕊️",
+      "category": "Hidden Vault",
+      "visible": false,
+      "url": null,
+      "requires_ai": true,
+      "description": "Draft UN/INGO competency-based achievement narratives aligned with core values.",
+      "keywords": [
+        "un jobs",
+        "ngo",
+        "undp",
+        "unicef",
+        "competency based",
+        "p11"
+      ],
+      "input_label": "Share your context, role, or draft details",
+      "input_placeholder": "Describe details for UN / NGO Competency-Based Cover Letter & P11 Builder...",
+      "prompt_template": "Draft UN/INGO competency-based achievement narratives aligned with core values. Return JSON: {\"title\": \"UN / NGO Competency-Based Cover Letter & P11 Builder\", \"summary\": \"Actionable career output\", \"sections\": [{\"heading\": \"Tailored Output\", \"items\": [\"...\"]}, {\"heading\": \"Key Next Steps\", \"items\": [\"...\"]}], \"copy_text\": \"Complete ready-to-use text\"}."
+    },
+    {
+      "id": "remote-home-office-setup-pitch",
+      "name": "Remote Power & Internet Redundancy Assurance Note",
+      "icon": "🔋",
+      "category": "Hidden Vault",
+      "visible": false,
+      "url": null,
+      "requires_ai": true,
+      "description": "Reassure international employers about your fiber + 4G/5G + battery backup reliability.",
+      "keywords": [
+        "power backup",
+        "internet speed",
+        "load shedding",
+        "remote reliability"
+      ],
+      "input_label": "Share your context, role, or draft details",
+      "input_placeholder": "Describe details for Remote Power & Internet Redundancy Assurance Note...",
+      "prompt_template": "Reassure international employers about your fiber + 4G/5G + battery backup reliability. Return JSON: {\"title\": \"Remote Power & Internet Redundancy Assurance Note\", \"summary\": \"Actionable career output\", \"sections\": [{\"heading\": \"Tailored Output\", \"items\": [\"...\"]}, {\"heading\": \"Key Next Steps\", \"items\": [\"...\"]}], \"copy_text\": \"Complete ready-to-use text\"}."
+    },
+    {
+      "id": "async-daily-standup-template",
+      "name": "Async Daily Standup & Weekly Client Report Generator",
+      "icon": "📝",
+      "category": "Hidden Vault",
+      "visible": false,
+      "url": null,
+      "requires_ai": true,
+      "description": "Turn raw git commits or tasks into a crisp Blocked/Done/Next async update clients love.",
+      "keywords": [
+        "standup",
+        "weekly update",
+        "status report",
+        "async update"
+      ],
+      "input_label": "Share your context, role, or draft details",
+      "input_placeholder": "Describe details for Async Daily Standup & Weekly Client Report Generator...",
+      "prompt_template": "Turn raw git commits or tasks into a crisp Blocked/Done/Next async update clients love. Return JSON: {\"title\": \"Async Daily Standup & Weekly Client Report Generator\", \"summary\": \"Actionable career output\", \"sections\": [{\"heading\": \"Tailored Output\", \"items\": [\"...\"]}, {\"heading\": \"Key Next Steps\", \"items\": [\"...\"]}], \"copy_text\": \"Complete ready-to-use text\"}."
+    },
+    {
+      "id": "counter-multiple-offers-matrix",
+      "name": "Multiple Job Offers Decision Matrix & Leverager",
+      "icon": "⚖️",
+      "category": "Hidden Vault",
+      "visible": false,
+      "url": null,
+      "requires_ai": true,
+      "description": "Compare 2+ job offers across net pay, growth, FX stability, and remote flexibility.",
+      "keywords": [
+        "two offers",
+        "compare job offers",
+        "multiple offers"
+      ],
+      "input_label": "Share your context, role, or draft details",
+      "input_placeholder": "Describe details for Multiple Job Offers Decision Matrix & Leverager...",
+      "prompt_template": "Compare 2+ job offers across net pay, growth, FX stability, and remote flexibility. Return JSON: {\"title\": \"Multiple Job Offers Decision Matrix & Leverager\", \"summary\": \"Actionable career output\", \"sections\": [{\"heading\": \"Tailored Output\", \"items\": [\"...\"]}, {\"heading\": \"Key Next Steps\", \"items\": [\"...\"]}], \"copy_text\": \"Complete ready-to-use text\"}."
+    },
+    {
+      "id": "linkedin-banner-tagline-generator",
+      "name": "LinkedIn Cover Banner Tagline & Social Proof Copy",
+      "icon": "🖼️",
+      "category": "Hidden Vault",
+      "visible": false,
+      "url": null,
+      "requires_ai": true,
+      "description": "Generate 5 punchy 8-word value propositions for your LinkedIn profile cover banner.",
+      "keywords": [
+        "linkedin banner",
+        "header image copy",
+        "personal brand"
+      ],
+      "input_label": "Share your context, role, or draft details",
+      "input_placeholder": "Describe details for LinkedIn Cover Banner Tagline & Social Proof Copy...",
+      "prompt_template": "Generate 5 punchy 8-word value propositions for your LinkedIn profile cover banner. Return JSON: {\"title\": \"LinkedIn Cover Banner Tagline & Social Proof Copy\", \"summary\": \"Actionable career output\", \"sections\": [{\"heading\": \"Tailored Output\", \"items\": [\"...\"]}, {\"heading\": \"Key Next Steps\", \"items\": [\"...\"]}], \"copy_text\": \"Complete ready-to-use text\"}."
+    },
+    {
+      "id": "cold-whatsapp-local-sme-pitch",
+      "name": "Local SME Website/Automation WhatsApp Pitch (Africa)",
+      "icon": "📱",
+      "category": "Hidden Vault",
+      "visible": false,
+      "url": null,
+      "requires_ai": true,
+      "description": "Write polite, high-reply WhatsApp outreach scripts to win local SME retainers in Nairobi/Lagos/Accra.",
+      "keywords": [
+        "whatsapp pitch",
+        "local business",
+        "pitch clinics",
+        "sme clients"
+      ],
+      "input_label": "Share your context, role, or draft details",
+      "input_placeholder": "Describe details for Local SME Website/Automation WhatsApp Pitch (Africa)...",
+      "prompt_template": "Write polite, high-reply WhatsApp outreach scripts to win local SME retainers in Nairobi/Lagos/Accra. Return JSON: {\"title\": \"Local SME Website/Automation WhatsApp Pitch (Africa)\", \"summary\": \"Actionable career output\", \"sections\": [{\"heading\": \"Tailored Output\", \"items\": [\"...\"]}, {\"heading\": \"Key Next Steps\", \"items\": [\"...\"]}], \"copy_text\": \"Complete ready-to-use text\"}."
+    },
+    {
+      "id": "upwork-profile-jss-recovery",
+      "name": "Upwork Job Success Score (JSS) <80% Recovery Plan",
+      "icon": "🩺",
+      "category": "Hidden Vault",
+      "visible": false,
+      "url": null,
+      "requires_ai": true,
+      "description": "Create a tactical 30-day plan + proposal framing to rebuild an Upwork JSS above 90%.",
+      "keywords": [
+        "jss",
+        "job success score",
+        "bad review upwork",
+        "recover profile"
+      ],
+      "input_label": "Share your context, role, or draft details",
+      "input_placeholder": "Describe details for Upwork Job Success Score (JSS) <80% Recovery Plan...",
+      "prompt_template": "Create a tactical 30-day plan + proposal framing to rebuild an Upwork JSS above 90%. Return JSON: {\"title\": \"Upwork Job Success Score (JSS) <80% Recovery Plan\", \"summary\": \"Actionable career output\", \"sections\": [{\"heading\": \"Tailored Output\", \"items\": [\"...\"]}, {\"heading\": \"Key Next Steps\", \"items\": [\"...\"]}], \"copy_text\": \"Complete ready-to-use text\"}."
+    },
+    {
+      "id": "ai-proof-career-moat-planner",
+      "name": "2026 AI-Proof Career Moat & Specialization Advisor",
+      "icon": "🛡️",
+      "category": "Hidden Vault",
+      "visible": false,
+      "url": null,
+      "requires_ai": true,
+      "description": "Identify high-margin human+AI specializations in your field that command premium 2026 rates.",
+      "keywords": [
+        "ai replace",
+        "future proof career",
+        "niche down",
+        "specialization"
+      ],
+      "input_label": "Share your context, role, or draft details",
+      "input_placeholder": "Describe details for 2026 AI-Proof Career Moat & Specialization Advisor...",
+      "prompt_template": "Identify high-margin human+AI specializations in your field that command premium 2026 rates. Return JSON: {\"title\": \"2026 AI-Proof Career Moat & Specialization Advisor\", \"summary\": \"Actionable career output\", \"sections\": [{\"heading\": \"Tailored Output\", \"items\": [\"...\"]}, {\"heading\": \"Key Next Steps\", \"items\": [\"...\"]}], \"copy_text\": \"Complete ready-to-use text\"}."
+    },
+    {
+      "id": "freelance-handover-documentation",
+      "name": "Clean Client Project Handover & Offboarding Doc",
+      "icon": "🏁",
+      "category": "Hidden Vault",
+      "visible": false,
+      "url": null,
+      "requires_ai": true,
+      "description": "Generate a professional project wrap-up, runbook, and warranty boundary document.",
+      "keywords": [
+        "handover",
+        "offboarding",
+        "project delivery",
+        "credentials handover"
+      ],
+      "input_label": "Share your context, role, or draft details",
+      "input_placeholder": "Describe details for Clean Client Project Handover & Offboarding Doc...",
+      "prompt_template": "Generate a professional project wrap-up, runbook, and warranty boundary document. Return JSON: {\"title\": \"Clean Client Project Handover & Offboarding Doc\", \"summary\": \"Actionable career output\", \"sections\": [{\"heading\": \"Tailored Output\", \"items\": [\"...\"]}, {\"heading\": \"Key Next Steps\", \"items\": [\"...\"]}], \"copy_text\": \"Complete ready-to-use text\"}."
+    },
+    {
+      "id": "reject-job-offer-gracefully",
+      "name": "Polite Job Offer Decline Email (Keep Door Open)",
+      "icon": "🙏",
+      "category": "Hidden Vault",
+      "visible": false,
+      "url": null,
+      "requires_ai": true,
+      "description": "Decline a job offer graciously while keeping hiring managers warm for future senior roles.",
+      "keywords": [
+        "decline offer",
+        "turn down job",
+        "reject offer politely"
+      ],
+      "input_label": "Share your context, role, or draft details",
+      "input_placeholder": "Describe details for Polite Job Offer Decline Email (Keep Door Open)...",
+      "prompt_template": "Decline a job offer graciously while keeping hiring managers warm for future senior roles. Return JSON: {\"title\": \"Polite Job Offer Decline Email (Keep Door Open)\", \"summary\": \"Actionable career output\", \"sections\": [{\"heading\": \"Tailored Output\", \"items\": [\"...\"]}, {\"heading\": \"Key Next Steps\", \"items\": [\"...\"]}], \"copy_text\": \"Complete ready-to-use text\"}."
+    }
+  ]
+}
