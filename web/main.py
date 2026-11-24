@@ -9,6 +9,11 @@ from __future__ import annotations
 import logging
 import os
 from pathlib import Path
+import sys
+
+BASE_DIR = Path(__file__).resolve().parent
+if str(BASE_DIR) not in sys.path:
+    sys.path.insert(0, str(BASE_DIR))
 
 from dotenv import load_dotenv
 from fastapi import FastAPI
@@ -31,8 +36,6 @@ logging.basicConfig(
     format="%(asctime)s | %(levelname)s | %(name)s | %(message)s",
 )
 
-BASE_DIR = Path(__file__).resolve().parent
-
 app = FastAPI(
     title="ApplyKit Hub API & Web",
     description="AI Career & Freelance Toolkit Hub for Africa + Global Freelancers",
@@ -54,7 +57,7 @@ allowed_origins = [
 app.add_middleware(
     CORSMiddleware,
     allow_origins=allowed_origins,
-    allow_origin_regex=r"^(chrome-extension|moz-extension|safari-web-extension|extension)://.*$|^https://.*\.e2b\.app$",
+    allow_origin_regex=r"^(chrome-extension|moz-extension|safari-web-extension|extension)://.*$|^https://.*\.(e2b\.app|vercel\.app)$",
     allow_credentials=False,
     allow_methods=["GET", "POST", "DELETE", "OPTIONS"],
     allow_headers=["Authorization", "Content-Type", "X-Signature"],
