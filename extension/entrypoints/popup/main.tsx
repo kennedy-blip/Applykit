@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { fetchCurrentUser, getSettings, queryVaultRouter, saveSettings } from '../../lib/api';
 
 function PopupApp() {
-  const [backendUrl, setBackendUrl] = useState('http://localhost:8000');
+  const [backendUrl, setBackendUrl] = useState('https://applykit-nine.vercel.app');
   const [jwtToken, setJwtToken] = useState('');
   const [cvText, setCvText] = useState('');
   const [hideLowMatch, setHideLowMatch] = useState(false);

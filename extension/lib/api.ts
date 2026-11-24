@@ -26,7 +26,7 @@ export interface ExtractedJob {
 }
 
 const DEFAULT_SETTINGS: ExtensionSettings = {
-  backendUrl: 'http://localhost:8000',
+  backendUrl: 'https://applykit-nine.vercel.app',
   jwtToken: '',
   cvText: '',
   hideLowMatch: false,

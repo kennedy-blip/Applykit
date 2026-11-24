@@ -255,6 +255,20 @@ async def pricing_page(
     return templates.TemplateResponse(request, "pricing.html", ctx)
 
 
+@router.get("/extension", response_class=HTMLResponse)
+async def extension_install_page(
+    request: Request,
+    user: Optional[Dict[str, Any]] = Depends(get_optional_user),
+) -> HTMLResponse:
+    ctx = _common_ctx(
+        request,
+        user,
+        page_title="Install ApplyKit Browser Extension (Chrome, Edge, Brave, Opera, Firefox) | ApplyKit",
+        meta_description="Download the ApplyKit Manifest V3 browser extension for Chrome, Edge, Brave, Opera & Firefox. Get live Upwork/LinkedIn Match Scores, Scam Badges, and 1-Click Cover Letters.",
+    )
+    return templates.TemplateResponse(request, "extension_install.html", ctx)
+
+
 @router.get("/admin", response_class=HTMLResponse)
 async def admin_page(
     request: Request,
@@ -319,6 +333,7 @@ async def sitemap_xml(request: Request) -> Response:
     base = os.getenv("BACKEND_URL", str(request.base_url).rstrip("/"))
     urls = [
         f"{base}/",
+        f"{base}/extension",
         f"{base}/pricing",
         f"{base}/privacy",
         f"{base}/terms",

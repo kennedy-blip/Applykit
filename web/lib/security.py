@@ -21,7 +21,6 @@ from fastapi import Depends, HTTPException, Request, UploadFile, status
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
 from jose import JWTError, jwt
 from slowapi import Limiter
-from slowapi.util import get_remote_address
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.responses import Response
 
@@ -29,8 +28,21 @@ from lib.supabase_client import get_or_create_profile, get_supabase
 
 logger = logging.getLogger("applykit.security")
 
-# Rate limiter keyed by client IP
-limiter = Limiter(key_func=get_remote_address)
+
+def get_client_ip(request: Request) -> str:
+    forwarded = request.headers.get("x-forwarded-for", "")
+    if forwarded:
+        return forwarded.split(",")[0].strip()
+    real_ip = request.headers.get("x-real-ip", "").strip()
+    if real_ip:
+        return real_ip
+    if request.client and request.client.host:
+        return request.client.host
+    return "127.0.0.1"
+
+
+# Rate limiter keyed by real forwarded client IP (essential behind Vercel / Render proxies)
+limiter = Limiter(key_func=get_client_ip)
 
 http_basic = HTTPBasic()
 
@@ -40,15 +52,6 @@ ALLOWED_CV_MIMES = {
     "application/pdf",
     "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
 }
-
-
-def get_client_ip(request: Request) -> str:
-    forwarded = request.headers.get("x-forwarded-for", "")
-    if forwarded:
-        return forwarded.split(",")[0].strip()
-    if request.client and request.client.host:
-        return request.client.host
-    return "127.0.0.1"
 
 
 def hash_ip(request: Request) -> str:
@@ -264,13 +267,18 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
         supabase_url = os.getenv("SUPABASE_URL", "https://*.supabase.co")
         csp = (
             "default-src 'self'; "
-            "script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdn.jsdelivr.net "
-            "https://pagead2.googlesyndication.com https://adservice.google.com https://www.googletagservices.com; "
-            "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; "
-            "font-src 'self' https://fonts.gstatic.com data:; "
-            "img-src 'self' data: https:; "
-            f"connect-src 'self' {supabase_url} https://*.supabase.co https://pagead2.googlesyndication.com; "
-            "frame-src https://googleads.g.doubleclick.net https://tpc.googlesyndication.com;"
+            "script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net "
+            "https://pagead2.googlesyndication.com https://adservice.google.com https://www.googletagservices.com "
+            "https://vercel.live https://*.vercel-scripts.com; "
+            "script-src-elem 'self' 'unsafe-inline' https://cdn.jsdelivr.net "
+            "https://pagead2.googlesyndication.com https://adservice.google.com https://www.googletagservices.com "
+            "https://vercel.live https://*.vercel-scripts.com; "
+            "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://vercel.live; "
+            "font-src 'self' https://fonts.gstatic.com https://vercel.live data:; "
+            "img-src 'self' data: blob: https:; "
+            f"connect-src 'self' {supabase_url} https://*.supabase.co https://pagead2.googlesyndication.com "
+            "https://vercel.live wss://ws-us3.pusher.com https://*.pusher.com; "
+            "frame-src https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://vercel.live;"
         )
         response.headers["Content-Security-Policy"] = csp
         response.headers["Strict-Transport-Security"] = "max-age=63072000; includeSubDomains; preload"

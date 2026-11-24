@@ -14,6 +14,8 @@ export default defineConfig({
     host_permissions: [
       'https://*.upwork.com/*',
       'https://*.linkedin.com/*',
+      'https://applykit-nine.vercel.app/*',
+      'https://*.vercel.app/*',
       'http://localhost:8000/*',
       'https://*.onrender.com/*'
     ],

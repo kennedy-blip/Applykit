@@ -342,3 +342,21 @@ def test_extension_cors_headers():
     assert ff_resp.status_code == 200
     assert ff_resp.headers.get("access-control-allow-origin") == "moz-extension://12345678-abcd-ef01-2345-6789abcdef01"
 
+
+def test_extension_install_page_and_production_tailwind_csp():
+    ext_page = client.get("/extension")
+    assert ext_page.status_code == 200
+    assert "applykit-chrome-brave.zip" in ext_page.text
+    assert "applykit-firefox.zip" in ext_page.text
+    # Ensure cdn.tailwindcss.com is no longer loaded and compiled CSS exists
+    assert "cdn.tailwindcss.com" not in ext_page.text
+    assert "/static/tailwind.css" in ext_page.text
+    csp = ext_page.headers.get("content-security-policy", "")
+    assert "https://vercel.live" in csp
+    assert "script-src-elem" in csp
+
+    zip_dl = client.get("/static/extensions/applykit-chrome-brave.zip")
+    assert zip_dl.status_code == 200
+    assert zip_dl.content[:2] == b"PK"
+
+

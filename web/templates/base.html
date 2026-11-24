@@ -14,8 +14,8 @@
   <meta property="og:description" content="{{ meta_description | default('AI Job Toolkit Hub for Africa & Global Freelancers.') }}" />
   <meta property="og:url" content="{{ request.url }}" />
 
-  <!-- TailwindCSS CDN + Custom Lightweight CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Production Compiled TailwindCSS + Custom Lightweight CSS (Zero CDN warning) -->
+  <link rel="stylesheet" href="/static/tailwind.css" />
   <link rel="stylesheet" href="/static/style.css" />
 
   {% if not user.is_pro and ADSENSE_ID and 'XXXX' not in ADSENSE_ID %}
@@ -85,6 +85,7 @@
 
       <!-- Navigation & Auth -->
       <nav class="flex items-center gap-2 sm:gap-3 text-xs sm:text-sm font-semibold shrink-0">
+        <a href="/extension" class="hidden md:inline-flex items-center gap-1 text-slate-600 hover:text-slate-900 px-2 py-1 rounded-lg hover:bg-slate-100">🧩 Extension</a>
         <a href="/dashboard" class="text-slate-600 hover:text-slate-900 px-2 py-1 rounded-lg hover:bg-slate-100">Tracker</a>
         <a href="/pricing" class="hidden sm:inline-block text-emerald-700 hover:text-emerald-800 px-2 py-1 rounded-lg hover:bg-emerald-50">
           {% if user.is_pro %}Pro Active{% else %}Go Pro{% endif %}
@@ -146,6 +147,7 @@
           <li><a href="/tools/scam-detector" class="hover:text-emerald-700">Job Scam Detector</a></li>
           <li><a href="/tools/invoice-generator" class="hover:text-emerald-700">M-Pesa &amp; PDF Invoice Generator</a></li>
           <li><a href="/tools/interview-questions-generator" class="hover:text-emerald-700">Interview Q&amp;A Generator</a></li>
+          <li><a href="/extension" class="text-emerald-700 font-semibold hover:underline">🧩 Install Browser Extension</a></li>
           <li><button type="button" onclick="window.ApplyKit.openPalette()" class="text-emerald-700 font-semibold hover:underline">⚡ Search 60+ Hidden Vault Tools</button></li>
         </ul>
       </div>

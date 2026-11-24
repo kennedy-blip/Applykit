@@ -69,6 +69,14 @@
         openUpgradeModal(message);
         throw new Error(message);
       }
+      if (res.status === 429) {
+        const rateMsg =
+          data.error && String(data.error).includes("Rate limit")
+            ? "Too many STK Push attempts right now. Please wait a few minutes or pay instantly via our Manual M-Pesa Till (4182930) on the Pricing page!"
+            : message || "Rate limit reached — please wait a moment or use Manual M-Pesa Till.";
+        toast(rateMsg);
+        throw new Error(rateMsg);
+      }
       toast(message);
       throw new Error(message);
     }
@@ -911,6 +919,14 @@
   }
 
   async function exportAppsCsv() {
+    if (!getAuthToken()) {
+      openLoginModal("Sign in free first to access your Kanban applications.");
+      return;
+    }
+    if (document.body.dataset.isPro !== "true") {
+      openUpgradeModal("CSV Export is an ApplyKit Pro feature. Upgrade via M-Pesa (750 KES) or Lemon Squeezy ($6/mo)!");
+      return;
+    }
     const res = await fetch("/api/applications/export.csv", { headers: authHeaders() });
     if (res.status === 402) {
       openUpgradeModal("CSV Export is an ApplyKit Pro feature. Upgrade via M-Pesa (750 KES) or Lemon Squeezy ($6/mo)!");
@@ -925,6 +941,17 @@
     a.href = URL.createObjectURL(blob);
     a.download = "applykit_applications.csv";
     a.click();
+  }
+
+  function copyExtensionSyncToken() {
+    const tok = getAuthToken();
+    if (!tok) {
+      openLoginModal("Sign in first so ApplyKit can generate your browser extension sync token.");
+      return;
+    }
+    navigator.clipboard.writeText(tok).then(() => {
+      toast("✓ Sync token copied! Paste into ApplyKit Extension Popup (or refresh this tab to auto-sync).");
+    });
   }
 
   // -------------------------------------------------------------------------
@@ -1097,6 +1124,7 @@
     handleKanbanDrop,
     deleteApp,
     exportAppsCsv,
+    copyExtensionSyncToken,
     openLoginModal,
     openUpgradeModal,
     closeModals,
