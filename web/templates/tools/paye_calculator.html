@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block content %}
+<article class="max-w-5xl mx-auto px-4 py-8 sm:py-10" data-initial-country="{{ selected_country }}">
+  <header class="mb-6">
+    <div class="text-xs font-bold uppercase tracking-wider text-emerald-700 mb-1">🧮 Showcase Tool #4 · 2026 Statutory Tax Engine (Pure JS · Instant)</div>
+    <h1 class="text-2xl sm:text-4xl font-black text-slate-900">{{ h1_title }}</h1>
+    <p class="text-sm text-slate-600 mt-2">
+      Instant 2026 net salary payslip breakdown with Kenya KRA PAYE bands, SHIF (2.75%), NSSF Tier I &amp; II, Affordable Housing Levy (1.5%), plus Nigeria &amp; Ghana PAYE variants.
+    </p>
+  </header>
+
+  <!-- Country Variant Tabs (?country=kenya | nigeria | ghana) -->
+  <div class="flex flex-wrap gap-2 mb-5">
+    <a href="/tools/paye-calculator-kenya-2026?country=kenya" onclick="event.preventDefault(); window.ApplyKit.setPayeCountry('kenya')" id="tabCountryKenya" class="px-4 py-2 rounded-xl text-xs font-bold border transition">🇰🇪 Kenya (KES · KRA 2026)</a>
+    <a href="/tools/paye-calculator-kenya-2026?country=nigeria" onclick="event.preventDefault(); window.ApplyKit.setPayeCountry('nigeria')" id="tabCountryNigeria" class="px-4 py-2 rounded-xl text-xs font-bold border transition">🇳🇬 Nigeria (NGN · PAYE)</a>
+    <a href="/tools/paye-calculator-kenya-2026?country=ghana" onclick="event.preventDefault(); window.ApplyKit.setPayeCountry('ghana')" id="tabCountryGhana" class="px-4 py-2 rounded-xl text-xs font-bold border transition">🇬🇭 Ghana (GHS · GRA)</a>
+  </div>
+
+  <div class="grid lg:grid-cols-5 gap-6">
+    <div class="lg:col-span-3 bg-white rounded-2xl border border-slate-200 shadow-sm p-5 sm:p-6 space-y-4">
+      <div>
+        <label for="payeGross" class="block text-xs font-bold text-slate-800 mb-1">Monthly Gross Salary (<span id="payeCurrencyLabel">KES</span>)</label>
+        <input id="payeGross" type="number" value="120000" min="0" step="1000" oninput="window.ApplyKit.calcPaye()" class="w-full rounded-xl border border-slate-300 px-4 py-3 text-base font-bold" />
+      </div>
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div>
+          <label for="payeAllowances" class="block text-xs font-bold text-slate-800 mb-1">Taxable Allowances (<span class="payeCurr">KES</span>)</label>
+          <input id="payeAllowances" type="number" value="0" min="0" step="500" oninput="window.ApplyKit.calcPaye()" class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm" />
+        </div>
+        <div>
+          <label for="payeVoluntaryPension" class="block text-xs font-bold text-slate-800 mb-1">Voluntary Pension / Mortgage Relief</label>
+          <input id="payeVoluntaryPension" type="number" value="0" min="0" step="500" oninput="window.ApplyKit.calcPaye()" class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm" />
+        </div>
+      </div>
+
+      <!-- Band Breakdown Table -->
+      <div class="pt-3 border-t border-slate-100">
+        <h3 id="payeRulesHeading" class="text-xs font-bold uppercase text-slate-500 mb-2">2026 Statutory Deductions Applied</h3>
+        <div id="payeBandsNotes" class="text-xs text-slate-600 leading-relaxed bg-slate-50 rounded-xl p-3 border border-slate-100"></div>
+      </div>
+    </div>
+
+    <!-- Payslip Summary Card -->
+    <div class="lg:col-span-2 bg-slate-900 text-white rounded-2xl p-6 flex flex-col justify-between shadow-lg">
+      <div>
+        <div class="text-xs uppercase tracking-wider text-emerald-400 font-bold">Estimated Monthly Net Pay</div>
+        <div id="payeNetPay" class="text-3xl sm:text-4xl font-black mt-1.5 text-white">KES 0</div>
+        <div id="payeEffectiveRate" class="text-xs text-emerald-300 mt-1">Effective Deduction Rate: 0%</div>
+
+        <div id="payeLinesContainer" class="mt-5 pt-4 border-t border-slate-800 space-y-2 text-xs">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <div class="mt-6 flex gap-2 print:hidden">
+        <button type="button" onclick="window.print()" class="flex-1 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs">📄 Print Payslip PDF</button>
+        <a id="payeWhatsappBtn" href="https://wa.me/" target="_blank" rel="noopener" class="px-3.5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-xs">💬 WhatsApp</a>
+      </div>
+    </div>
+  </div>
+
+  {% with slot_position="in-feed-paye" %}{% include "components/adslot.html" %}{% endwith %}
+
+  <section class="mt-12 bg-white rounded-2xl border border-slate-200 p-6 space-y-4">
+    <h2 class="text-lg font-extrabold text-slate-900">2026 Kenya PAYE, SHIF, NSSF &amp; Housing Levy Guide</h2>
+    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+      In Kenya's 2026 statutory payroll framework, KRA taxes monthly chargeable income across progressive bands (10% on the first KES 24,000; 25% on the next KES 8,333; 30% up to KES 500,000; 32.5% up to KES 800,000; and 35% above KES 800,000) minus Personal Relief of KES 2,400/month. Mandatory NSSF (6% up to Tier II cap), SHIF (2.75% of gross), and Affordable Housing Levy (1.5% of gross) reduce taxable income before PAYE is applied.
+    </p>
+    {% for faq in faqs %}
+    <div class="border-t border-slate-100 pt-3">
+      <h3 class="font-bold text-sm text-slate-900">{{ faq.q }}</h3>
+      <p class="text-xs sm:text-sm text-slate-600 mt-1">{{ faq.a }}</p>
+    </div>
+    {% endfor %}
+  </section>
+</article>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const initial = document.querySelector('[data-initial-country]')?.dataset.initialCountry || 'kenya';
+    window.ApplyKit.setPayeCountry(initial);
+  });
+</script>
+{% endblock %}

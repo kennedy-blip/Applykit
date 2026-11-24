@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block content %}
+<article class="max-w-5xl mx-auto px-4 py-8 sm:py-10">
+  <header class="mb-6">
+    <div class="text-xs font-bold uppercase tracking-wider text-emerald-700 mb-1">💰 Showcase Tool #3 · 100% Free Instant Calculator (No AI Quota Used)</div>
+    <h1 class="text-2xl sm:text-4xl font-black text-slate-900">{{ h1_title }}</h1>
+    <p class="text-sm text-slate-600 mt-2">
+      Stop undercharging! Compute the exact <strong>USD/hour</strong> rate you must quote on Upwork, Toptal, or direct contracts to hit your desired monthly KES take-home after platform fees, FX withdrawal spread &amp; KRA tax.
+    </p>
+  </header>
+
+  <div class="grid lg:grid-cols-5 gap-6">
+    <!-- Inputs -->
+    <div class="lg:col-span-3 bg-white rounded-2xl border border-slate-200 shadow-sm p-5 sm:p-6 space-y-4">
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div>
+          <label for="rcNetKes" class="block text-xs font-bold text-slate-800 mb-1">Desired Monthly Net Take-Home (KES)</label>
+          <input id="rcNetKes" type="number" value="180000" min="10000" step="5000" oninput="window.ApplyKit.calcFreelanceRate()" class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm font-semibold" />
+        </div>
+        <div>
+          <label for="rcFxRate" class="block text-xs font-bold text-slate-800 mb-1">USD → KES Exchange Rate</label>
+          <input id="rcFxRate" type="number" value="129.5" min="50" step="0.5" oninput="window.ApplyKit.calcFreelanceRate()" class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm font-semibold" />
+        </div>
+        <div>
+          <label for="rcHoursWeek" class="block text-xs font-bold text-slate-800 mb-1">Billable Hours / Week</label>
+          <input id="rcHoursWeek" type="number" value="25" min="5" max="70" oninput="window.ApplyKit.calcFreelanceRate()" class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm" />
+        </div>
+        <div>
+          <label for="rcPlatformFee" class="block text-xs font-bold text-slate-800 mb-1">Platform Fee % (Upwork = 10%)</label>
+          <input id="rcPlatformFee" type="number" value="10" min="0" max="40" step="0.5" oninput="window.ApplyKit.calcFreelanceRate()" class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm" />
+        </div>
+        <div>
+          <label for="rcWithdrawFee" class="block text-xs font-bold text-slate-800 mb-1">M-Pesa / Payoneer Withdrawal %</label>
+          <input id="rcWithdrawFee" type="number" value="2.0" min="0" max="15" step="0.25" oninput="window.ApplyKit.calcFreelanceRate()" class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm" />
+        </div>
+        <div>
+          <label for="rcTaxRate" class="block text-xs font-bold text-slate-800 mb-1">Estimated KRA / Income Tax Reserve %</label>
+          <input id="rcTaxRate" type="number" value="15" min="0" max="45" step="1" oninput="window.ApplyKit.calcFreelanceRate()" class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm" />
+        </div>
+      </div>
+      <div>
+        <label for="rcOverheadKes" class="block text-xs font-bold text-slate-800 mb-1">Monthly Business Overhead KES (Fiber Internet, Co-working, Power, Software)</label>
+        <input id="rcOverheadKes" type="number" value="12000" min="0" step="1000" oninput="window.ApplyKit.calcFreelanceRate()" class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm" />
+      </div>
+    </div>
+
+    <!-- Live Breakdown Card -->
+    <div class="lg:col-span-2 bg-slate-900 text-white rounded-2xl p-6 flex flex-col justify-between shadow-lg">
+      <div>
+        <div class="text-xs uppercase tracking-wider text-emerald-400 font-bold">Minimum Hourly Rate to Quote</div>
+        <div class="mt-2 flex items-baseline gap-2">
+          <span id="rcOutUsdHr" class="text-4xl sm:text-5xl font-black text-white">$24.50</span>
+          <span class="text-sm text-slate-400">/ hour USD</span>
+        </div>
+        <div id="rcOutKesHr" class="text-xs text-emerald-300 mt-1">≈ KES 3,173 / billable hour</div>
+
+        <div class="mt-6 space-y-2.5 text-xs border-t border-slate-800 pt-4">
+          <div class="flex justify-between"><span class="text-slate-400">Gross Monthly Billing Required:</span><strong id="rcGrossUsd" class="text-white">$0</strong></div>
+          <div class="flex justify-between"><span class="text-slate-400">Platform Service Fee:</span><span id="rcFeeUsd" class="text-rose-300">-$0</span></div>
+          <div class="flex justify-between"><span class="text-slate-400">Withdrawal &amp; FX Spread:</span><span id="rcWithdrawUsd" class="text-rose-300">-$0</span></div>
+          <div class="flex justify-between"><span class="text-slate-400">KRA Tax Reserve + Overhead:</span><span id="rcTaxKes" class="text-amber-300">KES 0</span></div>
+          <div class="flex justify-between pt-2 border-t border-slate-800 text-sm"><span class="text-emerald-300 font-bold">Net Take-Home:</span><strong id="rcCleanNetKes" class="text-emerald-400">KES 180,000</strong></div>
+        </div>
+      </div>
+
+      <div class="mt-6 flex flex-wrap gap-2 print:hidden">
+        <button type="button" onclick="window.print()" class="flex-1 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs">📄 Print / Save PDF</button>
+        <a id="rcWhatsappShare" href="https://wa.me/" target="_blank" rel="noopener" class="px-3.5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-xs">💬 WhatsApp</a>
+      </div>
+    </div>
+  </div>
+
+  {% with slot_position="in-feed-rate-calc" %}{% include "components/adslot.html" %}{% endwith %}
+
+  <!-- Rich SEO Guide + FAQ -->
+  <section class="mt-12 bg-white rounded-2xl border border-slate-200 p-6 space-y-4">
+    <h2 class="text-lg font-extrabold text-slate-900">How Kenyan &amp; African Freelancers Should Price Remote Contracts in 2026</h2>
+    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+      Many remote developers, virtual assistants, designers, and writers in Nairobi, Lagos, and Accra price their hourly rate by dividing a local gross salary by 160 hours. Once Upwork deducts 10%, Payoneer or M-Pesa takes 2% FX spread, and KRA income tax + home fiber internet are paid, real take-home drops by nearly 38%. Use realistic billable hours (20–28 hrs/week) to stay profitable.
+    </p>
+    {% for faq in faqs %}
+    <div class="border-t border-slate-100 pt-3">
+      <h3 class="font-bold text-sm text-slate-900">{{ faq.q }}</h3>
+      <p class="text-xs sm:text-sm text-slate-600 mt-1">{{ faq.a }}</p>
+    </div>
+    {% endfor %}
+  </section>
+</article>
+{% endblock %}
+
+{% block scripts %}
+<script>document.addEventListener('DOMContentLoaded', () => window.ApplyKit.calcFreelanceRate());</script>
+{% endblock %}

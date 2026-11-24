@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+env/
+ENV/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Environment & Secrets
+.env
+.env.local
+.env.*.local
+web/.env
+extension/.env
+
+# Node / WXT Extension
+node_modules/
+extension/node_modules/
+extension/.output/
+extension/.wxt/
+dist/
+build/
+*.log
+npm-debug.log*
+
+# OS & Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
